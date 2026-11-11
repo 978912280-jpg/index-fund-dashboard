@@ -52,6 +52,8 @@ button { font-family: inherit; }
   gap: 6px;
 }
 .meta-item { font-size: 13px; color: var(--muted); }
+.meta-line { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; }
+.meta-version { font-weight: 600; color: #2563a8; }
 .link-btn {
   background: none;
   border: none;

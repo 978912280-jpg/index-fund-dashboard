@@ -44,6 +44,10 @@
         if (data.meta && data.meta.generated_at) {
           t.textContent = "数据更新时间：" + data.meta.generated_at.replace("T", " ");
         }
+        var v = $("meta-version");
+        if (v && data.meta && data.meta.version) {
+          v.textContent = "v" + data.meta.version;
+        }
       })
       .catch(function (e) {
         $("table-body").innerHTML =
