@@ -304,6 +304,7 @@
     trendChart = echarts.init(el);
     trendChart.setOption(_klineOption(hist));
     requestAnimationFrame(function () { if (trendChart) trendChart.resize(); });
+    setTimeout(function () { if (trendChart) trendChart.resize(); }, 150);
   }
 
   function renderLineFallback(hist) {
@@ -425,6 +426,7 @@
     bigTrendChart = echarts.init(el);
     bigTrendChart.setOption(_klineOption(hist));
     requestAnimationFrame(function () { if (bigTrendChart) bigTrendChart.resize(); });
+    setTimeout(function () { if (bigTrendChart) bigTrendChart.resize(); }, 150);
   }
 
   function _scoreTone(v) {
