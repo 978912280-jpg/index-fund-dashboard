@@ -26,12 +26,14 @@ jobs:
         run: pip install requests xlrd
 
       - name: Build dashboard data
+        id: build
         env:
           # 可选：同花顺官方 API Key，存入仓库 Secrets；未配置时国内标的回退免费公开源
           HITHINK_API_KEY: ${{ secrets.HITHINK_API_KEY }}
         run: python3 scripts/build.py
 
       - name: Commit updated data (idempotent)
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -42,3 +44,57 @@ jobs:
           else
             echo "No data changes; skip commit."
           fi
+
+      - name: Notify Bark (success/failure)
+        if: always()
+        env:
+          BARK_KEY: ${{ secrets.BARK_KEY }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          COMMIT_OUTCOME: ${{ steps.commit.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+
+          key = os.environ.get("BARK_KEY", "").strip()
+          build_out = os.environ.get("BUILD_OUTCOME", "")
+          commit_out = os.environ.get("COMMIT_OUTCOME", "")
+
+          status = {}
+          try:
+              status = json.load(open("/tmp/build-status.json"))
+          except Exception:
+              pass
+
+          build_ok = build_out == "success" and status.get("ok", True)
+          commit_ok = commit_out in ("success", "skipped", "")
+          ok = build_ok and commit_ok
+
+          if ok:
+              title = "基金观察台 · 更新成功"
+              body = "标的 %s 只，失败 %s 只" % (status.get("total", "-"), status.get("failed", 0))
+          else:
+              title = "基金观察台 · 更新失败"
+              errs = status.get("errors") or []
+              if errs:
+                  body = "；".join("%s(%s): %s" % (e.get("name", ""), e.get("code", ""),
+                                  str(e.get("error", ""))[:80]) for e in errs[:5])
+              else:
+                  body = "构建/提交步骤异常（build=%s, commit=%s），详见 Actions 日志" % (build_out, commit_out)
+
+          if not key:
+              print("[notify] 未配置 BARK_KEY，跳过 Bark 推送")
+              raise SystemExit(0)
+
+          payload = json.dumps({
+              "device_key": key, "title": title, "body": body,
+              "group": "fund-dashboard"
+          }).encode("utf-8")
+          req = urllib.request.Request(
+              "https://api.day.app/push", data=payload,
+              headers={"Content-Type": "application/json"})
+          try:
+              urllib.request.urlopen(req, timeout=15)
+              print("[notify] Bark 推送完成：%s" % title)
+          except Exception as e:
+              print("[notify] Bark 推送失败: %s" % e)
+          PY

@@ -220,6 +220,18 @@ def main():
     with open(out_dir / "dashboard.json", "w", encoding="utf-8") as f:
         json.dump(dashboard, f, ensure_ascii=False, indent=2)
 
+    # 构建状态快照（供 Actions 通知步骤读取成功/失败及失败原因，不入库）
+    status = {
+        "ok": len(errors) == 0,
+        "total": len(items_out),
+        "failed": len(errors),
+        "errors": [{"code": e["code"], "name": e["name"], "error": e["error"]}
+                   for e in errors],
+        "generated_at": dashboard["meta"]["generated_at"],
+    }
+    with open("/tmp/build-status.json", "w", encoding="utf-8") as f:
+        json.dump(status, f, ensure_ascii=False)
+
     print(f"[build] 标的 {len(items_out)} 条，失败 {len(errors)} 条，"
           f"生成于 {dashboard['meta']['generated_at']}")
     for e in errors:
