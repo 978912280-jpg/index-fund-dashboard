@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import sources
 import analyze
+import report
 
 CN_TZ = timezone(timedelta(hours=8))
 HISTORY_KEEP = 120  # dashboard 内联保留的最近交易日条数
@@ -153,6 +154,8 @@ def main():
             "by_rating": _count_by(items_out, "rating"),
             "errors": errors,
         },
+        "report": report.build_report(
+            items_out, cfg, now.isoformat(timespec="seconds")),
         "items": items_out,
     }
 

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>指数与基金估值观察台</title>
-  <link rel="stylesheet" href="css/style.css?v=20261112">
+  <link rel="stylesheet" href="css/style.css?v=20261113">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f2329'/%3E%3Cpath d='M6 16 L10 10 L13 13 L18 7' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <script src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" defer></script>
-  <script src="js/app.js?v=20261112" defer></script>
+  <script src="js/app.js?v=20261113" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -29,6 +29,33 @@
 
   <main class="container">
     <section class="overview" id="overview" aria-label="评级总览"></section>
+
+    <section class="report-card" id="report-card" hidden aria-label="每日观察报告">
+      <div class="report-head">
+        <div>
+          <h2 class="report-title">每日观察报告</h2>
+          <p class="report-date" id="report-date"></p>
+        </div>
+        <span class="report-mood" id="report-mood"></span>
+      </div>
+      <p class="report-summary" id="report-summary"></p>
+      <ul class="report-bullets" id="report-bullets"></ul>
+      <div class="report-groups">
+        <div class="report-group">
+          <h3 class="report-group-title">评分偏积极</h3>
+          <ul class="rp-list" id="rp-positive"></ul>
+        </div>
+        <div class="report-group">
+          <h3 class="report-group-title">中性观望</h3>
+          <ul class="rp-list" id="rp-neutral"></ul>
+        </div>
+        <div class="report-group">
+          <h3 class="report-group-title">评分偏谨慎</h3>
+          <ul class="rp-list" id="rp-cautious"></ul>
+        </div>
+      </div>
+      <div class="report-cats" id="report-cats"></div>
+    </section>
 
     <nav class="tabs" id="tabs" aria-label="分类筛选">
       <button class="tab active" data-cat="all" type="button">全部</button>

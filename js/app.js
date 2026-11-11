@@ -36,6 +36,7 @@
       .then(function (data) {
         state.data = data;
         renderOverview();
+        renderReport(data.report);
         renderTable();
         var t = $("update-time");
         if (data.meta && data.meta.generated_at) {
@@ -119,6 +120,58 @@
   }
 
   function indexOf(it) { return it.code; }
+
+  // ---------- 每日报告 ----------
+  function renderReport(report) {
+    var card = $("report-card");
+    if (!report) { card.hidden = true; return; }
+    card.hidden = false;
+
+    var s = report.summary || {};
+    var avg = s.avg_score === null || s.avg_score === undefined ? "—" : fmt(s.avg_score, 1);
+    $("report-date").textContent = "生成时间：" + (report.generated_at || "").replace("T", " ");
+    $("report-mood").textContent = s.mood || "—";
+    $("report-summary").textContent =
+      "共 " + s.total + " 只标的，" + s.valid + " 只完成评分；上涨 " + s.up +
+      "、下跌 " + s.down + "、平盘 " + s.flat + "；平均综合分 " + avg + "。";
+
+    var bullets = report.bullets || [];
+    $("report-bullets").innerHTML = bullets.map(function (b) {
+      return "<li>" + escapeHtml(b) + "</li>";
+    }).join("");
+
+    var groups = report.groups || {};
+    renderRpList("rp-positive", groups.positive);
+    renderRpList("rp-neutral", groups.neutral);
+    renderRpList("rp-cautious", groups.cautious);
+
+    var cats = report.category_summary || [];
+    $("report-cats").innerHTML = cats.map(function (c) {
+      return '<div class="rp-cat"><span class="rp-cat-label">' + escapeHtml(c.label) +
+        "</span><span class=\"rp-cat-meta\">均分 " + fmt(c.avg_score, 1) +
+        " · 最强 " + escapeHtml(c.best_name) + "（" + fmt(c.best_score, 1) + "）</span></div>";
+    }).join("");
+  }
+
+  function renderRpList(id, list) {
+    var el = $(id);
+    if (!list || !list.length) {
+      el.innerHTML = '<li class="rp-empty">暂无标的</li>';
+      return;
+    }
+    el.innerHTML = list.map(function (x) {
+      var score = x.score === null || x.score === undefined ? "—" : fmt(x.score, 1);
+      var chg = x.change_pct === null || x.change_pct === undefined ? "" :
+        '<span class="rp-chg ' + pctClass(x.change_pct) + '">' + fmtPct(x.change_pct) + "</span>";
+      return '<li class="rp-item">' +
+        '<div class="rp-top"><span class="rp-name">' + escapeHtml(x.name) + "</span>" +
+        '<span class="rp-right">' + chg +
+        '<span class="rp-score">' + score + "</span>" +
+        '<span class="badge rating-' + escapeHtml(x.rating) + '">' + escapeHtml(x.rating) +
+        "</span></span></div>" +
+        '<div class="rp-reason">' + escapeHtml(x.reason) + "</div></li>";
+    }).join("");
+  }
 
   // ---------- 详情 ----------
   function openDetail(it) {
