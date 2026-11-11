@@ -5,6 +5,8 @@
   var state = { data: null, filter: "all", current: null, bigPeriod: "day" };
   var trendChart = null;
   var bigTrendChart = null;
+  // 与 index.html 静态资源版本号同步，用于破除 dashboard.json 浏览器缓存
+  var ASSET_VER = "20261113m";
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -28,7 +30,7 @@
 
   // ---------- 数据加载 ----------
   function load() {
-    fetch("data/dashboard.json")
+    fetch("data/dashboard.json?v=" + ASSET_VER)
       .then(function (r) {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();
@@ -226,7 +228,7 @@
   }
 
   function loadAndRenderTrend(it) {
-    fetch("data/history/" + encodeURIComponent(it.code) + ".json")
+    fetch("data/history/" + encodeURIComponent(it.code) + ".json?v=" + ASSET_VER)
       .then(function (r) {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();
@@ -417,7 +419,7 @@
       if (it._hist) {
         renderBigKline(it._hist);
       } else {
-        fetch("data/history/" + encodeURIComponent(it.code) + ".json")
+        fetch("data/history/" + encodeURIComponent(it.code) + ".json?v=" + ASSET_VER)
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
