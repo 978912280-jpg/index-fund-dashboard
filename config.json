@@ -2,7 +2,7 @@
   "meta": {
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "_version_comment": "三段版本号 x.y.z；每次代码迭代发版末位 +1（如 1.0.0 → 1.0.1），每日定时刷新数据不改动版本号。"
   },
   "weights": {
@@ -158,15 +158,14 @@
       "yahoo": "QQQI"
     },
     {
-      "code": "008163",
-      "name": "红利低波50联接A",
+      "code": "515450",
+      "name": "南方红利低波50",
       "category": "holding",
       "region": "CN",
-      "kind": "fund",
-      "eastmoney": "008163",
-      "hithink": null,
-      "tencent": null,
-      "sina_cn": null,
+      "kind": "etf",
+      "hithink": "515450.SH",
+      "tencent": "sh515450",
+      "sina_cn": "sh515450",
       "yahoo": null
     },
     {

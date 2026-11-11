@@ -6,7 +6,7 @@
   var trendChart = null;
   var bigTrendChart = null;
   // 与 index.html 静态资源版本号同步，用于破除 dashboard.json 浏览器缓存
-  var ASSET_VER = "20261113m";
+  var ASSET_VER = "20261113n";
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -235,7 +235,7 @@
       })
       .then(function (d) {
         it._hist = d.history || [];
-        renderKline(it._hist);
+        renderKline(it._hist, it);
       })
       .catch(function () { renderLineFallback(it.history || []); });
   }
@@ -285,15 +285,40 @@
     return out;
   }
 
-  function _klineOption(hist, period) {
+  function _klineOption(hist, period, kind) {
     var WINDOW = 120;
+    var isFund = kind === "fund";
     var agg = _aggregate(hist, period || "day");
     var data = agg.slice(-WINDOW);
     var dates = data.map(function (h) { return h.date; });
     var ohlc = data.map(function (h) { return [h.open, h.close, h.low, h.high]; });
+    var navLine = data.map(function (h) { return h.close; });
     var closes = agg.map(function (h) { return h.close; });
     var ma100 = _sma(closes, 100).slice(-WINDOW);
     var ma250 = _sma(closes, 250).slice(-WINDOW);
+    var maSeries = [
+      {
+        name: "MA100", type: "line", data: ma100, smooth: false, showSymbol: false,
+        lineStyle: { width: 1.5, color: "#2563a8" }
+      },
+      {
+        name: "MA250", type: "line", data: ma250, smooth: false, showSymbol: false,
+        lineStyle: { width: 1.5, color: "#e65100" }
+      }
+    ];
+    var mainSeries = isFund
+      ? [{
+          name: "单位净值", type: "line", data: navLine, smooth: true, showSymbol: false,
+          lineStyle: { width: 2, color: "#2563a8" },
+          areaStyle: { color: "rgba(37,99,168,0.08)" }
+        }]
+      : [{
+          type: "candlestick", data: ohlc,
+          itemStyle: {
+            color: "#2e7d32", color0: "#b71c1c",
+            borderColor: "#2e7d32", borderColor0: "#b71c1c"
+          }
+        }];
     return {
       grid: { left: 12, right: 16, top: 28, bottom: 28, containLabel: true },
       tooltip: {
@@ -306,14 +331,18 @@
           var start = agg.length - WINDOW;
           var rec = agg[start + p.dataIndex];
           if (!rec) return "";
-          var o = rec.open, c = rec.close, l = rec.low, h = rec.high;
+          var c = rec.close;
           var prevClose = (start + p.dataIndex - 1 >= 0) ? closes[start + p.dataIndex - 1] : null;
           var chg = (prevClose && c != null && prevClose) ? (c - prevClose) / prevClose * 100 : null;
           var lines = ["<b>" + p.axisValue + "</b>"];
-          lines.push("开盘：" + fmt(o));
-          lines.push("收盘：" + fmt(c));
-          lines.push("最低：" + fmt(l));
-          lines.push("最高：" + fmt(h));
+          if (isFund) {
+            lines.push("单位净值：" + fmt(c));
+          } else {
+            lines.push("开盘：" + fmt(rec.open));
+            lines.push("收盘：" + fmt(c));
+            lines.push("最低：" + fmt(rec.low));
+            lines.push("最高：" + fmt(rec.high));
+          }
           if (chg !== null) {
             var sign = chg >= 0 ? "+" : "";
             var color = chg >= 0 ? "#2e7d32" : "#b71c1c";
@@ -334,31 +363,15 @@
         type: "value", scale: true,
         splitLine: { lineStyle: { color: "#eeeeee" } }, axisLabel: { color: "#6b7280" }
       },
-      series: [
-        {
-          type: "candlestick", data: ohlc,
-          itemStyle: {
-            color: "#2e7d32", color0: "#b71c1c",
-            borderColor: "#2e7d32", borderColor0: "#b71c1c"
-          }
-        },
-        {
-          name: "MA100", type: "line", data: ma100, smooth: false, showSymbol: false,
-          lineStyle: { width: 1.5, color: "#2563a8" }
-        },
-        {
-          name: "MA250", type: "line", data: ma250, smooth: false, showSymbol: false,
-          lineStyle: { width: 1.5, color: "#e65100" }
-        }
-      ]
+      series: mainSeries.concat(maSeries)
     };
   }
 
-  function renderKline(hist) {
+  function renderKline(hist, it) {
     var el = $("chart-trend");
     if (trendChart) trendChart.dispose();
     trendChart = echarts.init(el);
-    trendChart.setOption(_klineOption(hist, "day"));
+    trendChart.setOption(_klineOption(hist, "day", it && it.kind));
     requestAnimationFrame(function () { if (trendChart) trendChart.resize(); });
     setTimeout(function () { if (trendChart) trendChart.resize(); }, 150);
   }
@@ -417,7 +430,7 @@
     $("big-mask").hidden = false;
     requestAnimationFrame(function () {
       if (it._hist) {
-        renderBigKline(it._hist);
+        renderBigKline(it._hist, it);
       } else {
         fetch("data/history/" + encodeURIComponent(it.code) + ".json?v=" + ASSET_VER)
           .then(function (r) {
@@ -426,7 +439,7 @@
           })
           .then(function (d) {
             it._hist = d.history || [];
-            renderBigKline(it._hist);
+            renderBigKline(it._hist, it);
           })
           .catch(function () { /* 大屏 K 线留空 */ });
       }
@@ -438,11 +451,11 @@
     if (bigTrendChart) { bigTrendChart.dispose(); bigTrendChart = null; }
   }
 
-  function renderBigKline(hist) {
+  function renderBigKline(hist, it) {
     var el = $("big-trend");
     if (bigTrendChart) bigTrendChart.dispose();
     bigTrendChart = echarts.init(el);
-    bigTrendChart.setOption(_klineOption(hist, state.bigPeriod));
+    bigTrendChart.setOption(_klineOption(hist, state.bigPeriod, it && it.kind));
     requestAnimationFrame(function () { if (bigTrendChart) bigTrendChart.resize(); });
     setTimeout(function () { if (bigTrendChart) bigTrendChart.resize(); }, 150);
   }
@@ -503,7 +516,7 @@
       );
       btn.classList.add("active");
       var it = state.current;
-      if (it && it._hist) renderBigKline(it._hist);
+      if (it && it._hist) renderBigKline(it._hist, it);
     });
     $("big-mask").addEventListener("click", function (e) {
       if (e.target === $("big-mask")) closeBigScreen();
