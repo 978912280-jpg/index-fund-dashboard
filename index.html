@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>指数与基金估值观察台</title>
-  <link rel="stylesheet" href="css/style.css?v=20261113h">
+  <link rel="stylesheet" href="css/style.css?v=20261113i">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f2329'/%3E%3Cpath d='M6 16 L10 10 L13 13 L18 7' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <script src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" defer></script>
-  <script src="js/app.js?v=20261113h" defer></script>
+  <script src="js/app.js?v=20261113i" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -106,17 +106,14 @@
       </div>
       <div class="modal-body">
         <div class="modal-score" id="modal-score"></div>
+        <div class="score-cards" id="modal-scores"></div>
         <div class="chart-grid">
           <div class="chart-box">
             <div class="chart-head">
-              <h3 class="chart-title">近期走势</h3>
+              <h3 class="chart-title">近期走势（K 线 · MA100 / MA250）</h3>
               <button class="mini-btn" id="big-open" type="button" title="放大查看">放大</button>
             </div>
             <div id="chart-trend" class="chart"></div>
-          </div>
-          <div class="chart-box">
-            <h3 class="chart-title">四维评分</h3>
-            <div id="chart-radar" class="chart"></div>
           </div>
         </div>
         <div class="metrics-grid" id="modal-metrics"></div>
@@ -131,7 +128,6 @@
         <h2 class="big-title" id="big-title">—</h2>
         <button class="icon-btn" id="big-close" type="button" aria-label="关闭大屏">×</button>
       </div>
-      <div class="big-scores" id="big-scores"></div>
       <div class="big-grid">
         <div class="big-box">
           <h3 class="chart-title">近期走势（K 线 · MA100 / MA250）</h3>

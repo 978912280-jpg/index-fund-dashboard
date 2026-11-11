@@ -4,7 +4,6 @@
 
   var state = { data: null, filter: "all", current: null };
   var trendChart = null;
-  var radarChart = null;
   var bigTrendChart = null;
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
@@ -195,15 +194,14 @@
       (it.note ? '<span class="muted">' + escapeHtml(it.note) + "</span>" : "");
 
     renderMetrics(it);
+    renderModalScores(s);
     $("modal-mask").hidden = false;
     loadAndRenderTrend(it);
-    requestAnimationFrame(function () { renderRadar(s); });
   }
 
   function closeDetail() {
     $("modal-mask").hidden = true;
     if (trendChart) { trendChart.dispose(); trendChart = null; }
-    if (radarChart) { radarChart.dispose(); radarChart = null; }
   }
 
   function loadAndRenderTrend(it) {
@@ -332,46 +330,6 @@
     });
   }
 
-  function _radarOption(s) {
-    return {
-      tooltip: { confine: true },
-      radar: {
-        indicator: [
-          { name: "估值", max: 100 },
-          { name: "技术", max: 100 },
-          { name: "低拥挤", max: 100 },
-          { name: "风险", max: 100 }
-        ],
-        radius: "65%",
-        axisName: { color: "#6b7280" },
-        splitLine: { lineStyle: { color: "#eeeeee" } },
-        splitArea: { areaStyle: { color: ["#fff", "#f8f9fb"] } }
-      },
-      series: [{
-        type: "radar",
-        data: [{
-          value: [
-            s.valuation === null ? 0 : s.valuation,
-            s.technical === null ? 0 : s.technical,
-            s.crowding === null ? 0 : 100 - s.crowding,
-            s.risk === null ? 0 : s.risk
-          ],
-          lineStyle: { color: "#2563a8" },
-          itemStyle: { color: "#2563a8" },
-          areaStyle: { color: "rgba(37,99,168,0.15)" }
-        }]
-      }]
-    };
-  }
-
-  function renderRadar(s) {
-    var el = $("chart-radar");
-    if (radarChart) radarChart.dispose();
-    radarChart = echarts.init(el);
-    radarChart.setOption(_radarOption(s));
-    requestAnimationFrame(function () { if (radarChart) radarChart.resize(); });
-  }
-
   function renderMetrics(it) {
     var m = it.metrics || {};
     var rows = [
@@ -396,7 +354,6 @@
     if (!it) return;
     $("big-title").textContent = it.name + "（" + it.code + "）";
     $("big-mask").hidden = false;
-    renderBigScores(it.signals || {});
     requestAnimationFrame(function () {
       if (it._hist) {
         renderBigKline(it._hist);
@@ -436,14 +393,14 @@
     return "bad";
   }
 
-  function renderBigScores(s) {
+  function renderModalScores(s) {
     var dims = [
       ["估值", s.valuation],
       ["技术", s.technical],
       ["低拥挤", s.crowding === null ? null : 100 - s.crowding],
       ["风险", s.risk]
     ];
-    $("big-scores").innerHTML = dims.map(function (d) {
+    $("modal-scores").innerHTML = dims.map(function (d) {
       var v = d[1];
       var valid = v !== null && v !== undefined && !isNaN(v);
       var tone = valid ? _scoreTone(v) : "neutral";
@@ -492,7 +449,6 @@
 
     window.addEventListener("resize", function () {
       if (trendChart) trendChart.resize();
-      if (radarChart) radarChart.resize();
       if (bigTrendChart) bigTrendChart.resize();
     });
   }
