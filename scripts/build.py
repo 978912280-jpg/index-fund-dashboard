@@ -22,7 +22,37 @@ import analyze
 import report
 
 CN_TZ = timezone(timedelta(hours=8))
-HISTORY_KEEP = 120  # dashboard 内联保留的最近交易日条数
+HISTORY_KEEP = 120  # dashboard 内联保留的最近交易日条数（前端展示窗口）
+
+
+def _history_path(code):
+    return ROOT / "data" / "history" / f"{code}.json"
+
+
+def _load_old_history(code):
+    """读取已有历史快照；文件缺失/损坏时返回空列表，不阻断构建。"""
+    p = _history_path(code)
+    if not p.exists():
+        return []
+    try:
+        with open(p, "r", encoding="utf-8") as f:
+            body = json.load(f)
+        hist = body.get("history") if isinstance(body, dict) else body
+        return hist if isinstance(hist, list) else []
+    except (ValueError, OSError):
+        return []
+
+
+def _merge_history(old, new):
+    """按日期合并两份升序 OHLCV 序列：老数据保留，同日以本次拉取为准。"""
+    by_date = {}
+    for row in old or []:
+        if row and row.get("date"):
+            by_date[row["date"]] = row
+    for row in new or []:
+        if row and row.get("date"):
+            by_date[row["date"]] = row
+    return sorted(by_date.values(), key=lambda r: r["date"])
 
 
 def load_config():
@@ -96,7 +126,10 @@ def main():
 
     for item in cfg["items"]:
         try:
-            snapshot, history, note = fetch_one(item, cfg)
+            snapshot, fetched, note = fetch_one(item, cfg)
+            # 历史快照按日期累积：保留已有老数据，并入本次拉取的新交易日，
+            # 不剔除早期记录；同日以本次拉取为准。
+            history = _merge_history(_load_old_history(item["code"]), fetched)
             result = analyze.score_item(history, cfg)
 
             record = {

@@ -253,7 +253,7 @@ def sina_us_history(symbol):
             "volume": _f(it.get("v")),
         })
     out.sort(key=lambda x: x["date"])
-    return out[-750:] if out else None
+    return out or None
 
 
 # --------------------------------------------------------------------------
@@ -314,7 +314,7 @@ def eastmoney_fund_history(code):
         out.append({"date": d, "open": nav, "high": nav,
                     "low": nav, "close": nav, "volume": None})
     out.sort(key=lambda x: x["date"])
-    return out[-750:] if out else None
+    return out or None
 
 
 # --------------------------------------------------------------------------
@@ -354,4 +354,4 @@ def yahoo_history(symbol):
             "volume": _f(vols[i]) if i < len(vols) else None,
         })
     out.sort(key=lambda x: x["date"])
-    return out[-750:] if out else None
+    return out or None
