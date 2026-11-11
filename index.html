@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>指数与基金估值观察台</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f2329'/%3E%3Cpath d='M6 16 L10 10 L13 13 L18 7' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <script src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div>
+        <h1 class="title">指数与基金估值观察台</h1>
+        <p class="subtitle" id="subtitle">海外主流指数 · 红利低波 · 大盘宽基 每日量化观察</p>
+      </div>
+      <div class="topbar-meta">
+        <span class="meta-item" id="update-time">数据更新时间：—</span>
+        <button class="link-btn" id="toggle-disclaimer" type="button">口径与免责说明</button>
+      </div>
+    </div>
+    <div class="disclaimer" id="disclaimer" hidden>
+      <p>本页面所有评分均为规则化模型的量化输出，仅用于个人研究与记录，<strong>不构成任何投资建议</strong>。市场有风险，决策需自行判断。</p>
+      <p>估值维度以价格历史分位代理；拥挤度为量价代理口径（量比、短期涨幅、价位分位），不含份额申赎、换手率或主力资金流数据。海外部分行情来自受限免费源，仅供个人研究，数据准确性以官方披露为准。</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="overview" id="overview" aria-label="评级总览"></section>
+
+    <nav class="tabs" id="tabs" aria-label="分类筛选">
+      <button class="tab active" data-cat="all" type="button">全部</button>
+      <button class="tab" data-cat="overseas" type="button">海外指数</button>
+      <button class="tab" data-cat="dividend" type="button">红利低波</button>
+      <button class="tab" data-cat="broad" type="button">大盘宽基</button>
+    </nav>
+
+    <section class="table-card">
+      <div class="table-scroll">
+        <table class="main-table" id="main-table">
+          <colgroup>
+            <col style="width:22%">
+            <col style="width:13%">
+            <col style="width:11%">
+            <col style="width:13%">
+            <col style="width:13%">
+            <col style="width:13%">
+            <col style="width:15%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>标的</th>
+              <th>现价</th>
+              <th>涨跌幅</th>
+              <th>估值分</th>
+              <th>技术分</th>
+              <th>拥挤度</th>
+              <th>综合 / 评级</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+      <p class="empty-tip" id="empty-tip" hidden>当前分类暂无可用数据。</p>
+    </section>
+  </main>
+
+  <!-- 详情弹层 -->
+  <div class="modal-mask" id="modal-mask" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-head">
+        <h2 class="modal-title" id="modal-title">—</h2>
+        <button class="icon-btn" id="modal-close" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-score" id="modal-score"></div>
+        <div class="chart-grid">
+          <div class="chart-box">
+            <h3 class="chart-title">近期走势</h3>
+            <div id="chart-trend" class="chart"></div>
+          </div>
+          <div class="chart-box">
+            <h3 class="chart-title">四维评分</h3>
+            <div id="chart-radar" class="chart"></div>
+          </div>
+        </div>
+        <div class="metrics-grid" id="modal-metrics"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>评分模型：估值 0.35 · 技术 0.25 · 拥挤度 0.15（反向）· 风险 0.25</span>
+    <span>评级分界：≥80 强烈买入 / ≥60 买入 / ≥40 观望 / ≥20 卖出 / &lt;20 强烈卖出</span>
+  </footer>
+</body>
+</html>

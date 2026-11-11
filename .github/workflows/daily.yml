@@ -1,0 +1,50 @@
+name: daily-data-update
+
+# 触发方式：
+# 1. 外部定时服务（cron-job.org 等）定点调用 workflow_dispatch 接口准点触发；
+# 2. schedule 作为兜底，相隔 30 分钟左右多点跑，谁先跑成谁写数据；
+# 3. 也可在 Actions 页面手动 Run workflow。
+on:
+  workflow_dispatch:
+  schedule:
+    # cron 为 UTC 时间；以下对应北京时间 17:05 / 17:35 / 18:05（工作日）
+    - cron: "5 9 * * 1-5"
+    - cron: "35 9 * * 1-5"
+    - cron: "5 10 * * 1-5"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Build dashboard data
+        env:
+          # 可选：同花顺官方 API Key，存入仓库 Secrets；未配置时国内标的回退免费公开源
+          HITHINK_API_KEY: ${{ secrets.HITHINK_API_KEY }}
+        run: python3 scripts/build.py
+
+      - name: Commit updated data (idempotent)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain data/)" ]; then
+            git add data/
+            git commit -m "chore(data): daily dashboard update [skip ci]"
+            git push
+          else
+            echo "No data changes; skip commit."
+          fi

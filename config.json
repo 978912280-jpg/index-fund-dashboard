@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "title": "指数与基金估值观察台",
+    "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
+    "version": "1.0.0"
+  },
+  "weights": {
+    "valuation": 0.35,
+    "technical": 0.25,
+    "crowding": 0.15,
+    "risk": 0.25,
+    "_comment": "综合得分 = 估值分*valuation + 技术分*technical + (100-拥挤度)*crowding + 风险分*risk；四项权重之和应为 1。拥挤度为量价代理口径（量比/短期涨幅/价格分位），非份额申赎或资金流数据。"
+  },
+  "thresholds": {
+    "strong_buy": 80,
+    "buy": 60,
+    "hold": 40,
+    "sell": 20,
+    "_comment": "综合得分(0-100)：>=strong_buy 强烈买入；>=buy 买入；>=hold 观望；>=sell 卖出；其余 强烈卖出。"
+  },
+  "history_window": {
+    "trading_days": 750,
+    "_comment": "用于价格分位、均线、动量、波动率与回撤计算的历史交易日条数（约 3 年）。"
+  },
+  "sources": {
+    "hithink_base": "https://fuyao.aicubes.cn/api",
+    "timeout_sec": 12,
+    "hithink_api_key_env": "HITHINK_API_KEY",
+    "_comment": "同花顺 API Key 从环境变量读取，不写入仓库；未配置时国内标的自动回退免费公开源。"
+  },
+  "categories": {
+    "overseas": "海外指数",
+    "dividend": "红利低波",
+    "broad": "大盘宽基"
+  },
+  "items": [
+    {
+      "code": "IXIC",
+      "name": "纳斯达克综合",
+      "category": "overseas",
+      "region": "US",
+      "kind": "index",
+      "hithink": null,
+      "tencent": "usIXIC",
+      "sina_us": ".IXIC",
+      "yahoo": "^IXIC"
+    },
+    {
+      "code": "SPX",
+      "name": "标普500",
+      "category": "overseas",
+      "region": "US",
+      "kind": "index",
+      "hithink": null,
+      "tencent": "usINX",
+      "sina_us": ".INX",
+      "yahoo": "^GSPC"
+    },
+    {
+      "code": "DJI",
+      "name": "道琼斯工业",
+      "category": "overseas",
+      "region": "US",
+      "kind": "index",
+      "hithink": null,
+      "tencent": "usDJI",
+      "sina_us": ".DJI",
+      "yahoo": "^DJI"
+    },
+    {
+      "code": "N225",
+      "name": "日经225",
+      "category": "overseas",
+      "region": "JP",
+      "kind": "index",
+      "hithink": null,
+      "tencent": null,
+      "sina_us": null,
+      "yahoo": "^N225"
+    },
+    {
+      "code": "GDAXI",
+      "name": "德国DAX",
+      "category": "overseas",
+      "region": "DE",
+      "kind": "index",
+      "hithink": null,
+      "tencent": null,
+      "sina_us": null,
+      "yahoo": "^GDAXI"
+    },
+    {
+      "code": "HSI",
+      "name": "恒生指数",
+      "category": "overseas",
+      "region": "HK",
+      "kind": "index",
+      "hithink": null,
+      "tencent": "hkHSI",
+      "sina_us": null,
+      "yahoo": "^HSI"
+    },
+    {
+      "code": "512890",
+      "name": "红利低波ETF",
+      "category": "dividend",
+      "region": "CN",
+      "kind": "etf",
+      "hithink": "512890.SH",
+      "tencent": "sh512890",
+      "sina_cn": "sh512890",
+      "yahoo": null
+    },
+    {
+      "code": "510880",
+      "name": "红利ETF(上证红利)",
+      "category": "dividend",
+      "region": "CN",
+      "kind": "etf",
+      "hithink": "510880.SH",
+      "tencent": "sh510880",
+      "sina_cn": "sh510880",
+      "yahoo": null
+    },
+    {
+      "code": "515080",
+      "name": "中证红利ETF",
+      "category": "dividend",
+      "region": "CN",
+      "kind": "etf",
+      "hithink": "515080.SH",
+      "tencent": "sh515080",
+      "sina_cn": "sh515080",
+      "yahoo": null
+    },
+    {
+      "code": "159905",
+      "name": "深红利ETF",
+      "category": "dividend",
+      "region": "CN",
+      "kind": "etf",
+      "hithink": "159905.SZ",
+      "tencent": "sz159905",
+      "sina_cn": "sz159905",
+      "yahoo": null
+    },
+    {
+      "code": "000016",
+      "name": "上证50",
+      "category": "broad",
+      "region": "CN",
+      "kind": "index",
+      "hithink": "000016.SH",
+      "tencent": "sh000016",
+      "sina_cn": "sh000016",
+      "yahoo": null
+    },
+    {
+      "code": "000300",
+      "name": "沪深300",
+      "category": "broad",
+      "region": "CN",
+      "kind": "index",
+      "hithink": "000300.SH",
+      "tencent": "sh000300",
+      "sina_cn": "sh000300",
+      "yahoo": null
+    },
+    {
+      "code": "000905",
+      "name": "中证500",
+      "category": "broad",
+      "region": "CN",
+      "kind": "index",
+      "hithink": "000905.SH",
+      "tencent": "sh000905",
+      "sina_cn": "sh000905",
+      "yahoo": null
+    },
+    {
+      "code": "000852",
+      "name": "中证1000",
+      "category": "broad",
+      "region": "CN",
+      "kind": "index",
+      "hithink": "000852.SH",
+      "tencent": "sh000852",
+      "sina_cn": "sh000852",
+      "yahoo": null
+    },
+    {
+      "code": "399006",
+      "name": "创业板指",
+      "category": "broad",
+      "region": "CN",
+      "kind": "index",
+      "hithink": "399006.SZ",
+      "tencent": "sz399006",
+      "sina_cn": "sz399006",
+      "yahoo": null
+    }
+  ]
+}
