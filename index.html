@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>指数与基金估值观察台</title>
-  <link rel="stylesheet" href="css/style.css?v=20261113i">
+  <link rel="stylesheet" href="css/style.css?v=20261113j">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f2329'/%3E%3Cpath d='M6 16 L10 10 L13 13 L18 7' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <script src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" defer></script>
-  <script src="js/app.js?v=20261113i" defer></script>
+  <script src="js/app.js?v=20261113j" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -130,7 +130,14 @@
       </div>
       <div class="big-grid">
         <div class="big-box">
-          <h3 class="chart-title">近期走势（K 线 · MA100 / MA250）</h3>
+          <div class="chart-head">
+            <h3 class="chart-title">近期走势（K 线 · MA100 / MA250）</h3>
+            <div class="period-switch" id="big-period" role="tablist" aria-label="K线周期">
+              <button type="button" class="period-btn active" data-p="day">日线</button>
+              <button type="button" class="period-btn" data-p="week">周线</button>
+              <button type="button" class="period-btn" data-p="month">月线</button>
+            </div>
+          </div>
           <div id="big-trend" class="big-chart"></div>
         </div>
       </div>

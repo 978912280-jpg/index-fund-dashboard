@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  var state = { data: null, filter: "all", current: null };
+  var state = { data: null, filter: "all", current: null, bigPeriod: "day" };
   var trendChart = null;
   var bigTrendChart = null;
 
@@ -217,6 +217,40 @@
       .catch(function () { renderLineFallback(it.history || []); });
   }
 
+  function _weekKey(dateStr) {
+    var d = new Date(dateStr + "T00:00:00");
+    var day = (d.getDay() + 6) % 7; // 周一为 0
+    d.setDate(d.getDate() - day);
+    var y = d.getFullYear();
+    var m = ("0" + (d.getMonth() + 1)).slice(-2);
+    var dd = ("0" + d.getDate()).slice(-2);
+    return y + "-" + m + "-" + dd;
+  }
+
+  function _aggregate(hist, period) {
+    if (period === "day") return hist.slice();
+    var groups = [];
+    var map = {};
+    hist.forEach(function (h) {
+      var key = period === "month" ? h.date.slice(0, 7) : _weekKey(h.date);
+      if (!map[key]) {
+        map[key] = {
+          date: h.date, open: h.open, close: h.close,
+          high: h.high, low: h.low, volume: h.volume
+        };
+        groups.push(map[key]);
+      } else {
+        var g = map[key];
+        g.date = h.date;
+        g.close = h.close;
+        g.high = Math.max(g.high, h.high);
+        g.low = Math.min(g.low, h.low);
+        g.volume = (g.volume || 0) + (h.volume || 0);
+      }
+    });
+    return groups;
+  }
+
   function _sma(values, n) {
     var out = [];
     var sum = 0;
@@ -228,12 +262,13 @@
     return out;
   }
 
-  function _klineOption(hist) {
+  function _klineOption(hist, period) {
     var WINDOW = 120;
-    var data = hist.slice(-WINDOW);
+    var agg = _aggregate(hist, period || "day");
+    var data = agg.slice(-WINDOW);
     var dates = data.map(function (h) { return h.date; });
     var ohlc = data.map(function (h) { return [h.open, h.close, h.low, h.high]; });
-    var closes = hist.map(function (h) { return h.close; });
+    var closes = agg.map(function (h) { return h.close; });
     var ma100 = _sma(closes, 100).slice(-WINDOW);
     var ma250 = _sma(closes, 250).slice(-WINDOW);
     return {
@@ -245,8 +280,8 @@
         formatter: function (params) {
           if (!params || !params.length) return "";
           var p = params[0];
-          var start = hist.length - WINDOW;
-          var rec = hist[start + p.dataIndex];
+          var start = agg.length - WINDOW;
+          var rec = agg[start + p.dataIndex];
           if (!rec) return "";
           var o = rec.open, c = rec.close, l = rec.low, h = rec.high;
           var prevClose = (start + p.dataIndex - 1 >= 0) ? closes[start + p.dataIndex - 1] : null;
@@ -300,7 +335,7 @@
     var el = $("chart-trend");
     if (trendChart) trendChart.dispose();
     trendChart = echarts.init(el);
-    trendChart.setOption(_klineOption(hist));
+    trendChart.setOption(_klineOption(hist, "day"));
     requestAnimationFrame(function () { if (trendChart) trendChart.resize(); });
     setTimeout(function () { if (trendChart) trendChart.resize(); }, 150);
   }
@@ -353,6 +388,9 @@
     var it = state.current;
     if (!it) return;
     $("big-title").textContent = it.name + "（" + it.code + "）";
+    Array.prototype.forEach.call(document.querySelectorAll("#big-period .period-btn"), function (b) {
+      b.classList.toggle("active", b.getAttribute("data-p") === state.bigPeriod);
+    });
     $("big-mask").hidden = false;
     requestAnimationFrame(function () {
       if (it._hist) {
@@ -381,7 +419,7 @@
     var el = $("big-trend");
     if (bigTrendChart) bigTrendChart.dispose();
     bigTrendChart = echarts.init(el);
-    bigTrendChart.setOption(_klineOption(hist));
+    bigTrendChart.setOption(_klineOption(hist, state.bigPeriod));
     requestAnimationFrame(function () { if (bigTrendChart) bigTrendChart.resize(); });
     setTimeout(function () { if (bigTrendChart) bigTrendChart.resize(); }, 150);
   }
@@ -432,6 +470,18 @@
 
     $("big-open").addEventListener("click", openBigScreen);
     $("big-close").addEventListener("click", closeBigScreen);
+    $("big-period").addEventListener("click", function (e) {
+      var btn = e.target.closest(".period-btn");
+      if (!btn) return;
+      state.bigPeriod = btn.getAttribute("data-p");
+      Array.prototype.forEach.call(
+        document.querySelectorAll("#big-period .period-btn"),
+        function (b) { b.classList.remove("active"); }
+      );
+      btn.classList.add("active");
+      var it = state.current;
+      if (it && it._hist) renderBigKline(it._hist);
+    });
     $("big-mask").addEventListener("click", function (e) {
       if (e.target === $("big-mask")) closeBigScreen();
     });
