@@ -275,7 +275,7 @@
     if (trendChart) trendChart.dispose();
     trendChart = echarts.init(el);
     trendChart.setOption(_klineOption(hist));
-    trendChart.resize();
+    requestAnimationFrame(function () { if (trendChart) trendChart.resize(); });
   }
 
   function renderLineFallback(hist) {
@@ -340,7 +340,7 @@
     if (radarChart) radarChart.dispose();
     radarChart = echarts.init(el);
     radarChart.setOption(_radarOption(s));
-    radarChart.resize();
+    requestAnimationFrame(function () { if (radarChart) radarChart.resize(); });
   }
 
   function renderMetrics(it) {
@@ -367,25 +367,23 @@
     if (!it) return;
     $("big-title").textContent = it.name + "（" + it.code + "）";
     $("big-mask").hidden = false;
-    renderBigRadar(it.signals || {});
     renderBigScores(it.signals || {});
-    if (it._hist) {
-      renderBigKline(it._hist);
-    } else {
-      fetch("data/history/" + encodeURIComponent(it.code) + ".json")
-        .then(function (r) {
-          if (!r.ok) throw new Error("HTTP " + r.status);
-          return r.json();
-        })
-        .then(function (d) {
-          it._hist = d.history || [];
-          renderBigKline(it._hist);
-        })
-        .catch(function () { /* 大屏 K 线留空 */ });
-    }
     requestAnimationFrame(function () {
-      if (bigTrendChart) bigTrendChart.resize();
-      if (bigRadarChart) bigRadarChart.resize();
+      renderBigRadar(it.signals || {});
+      if (it._hist) {
+        renderBigKline(it._hist);
+      } else {
+        fetch("data/history/" + encodeURIComponent(it.code) + ".json")
+          .then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.json();
+          })
+          .then(function (d) {
+            it._hist = d.history || [];
+            renderBigKline(it._hist);
+          })
+          .catch(function () { /* 大屏 K 线留空 */ });
+      }
     });
   }
 
@@ -400,7 +398,7 @@
     if (bigTrendChart) bigTrendChart.dispose();
     bigTrendChart = echarts.init(el);
     bigTrendChart.setOption(_klineOption(hist));
-    bigTrendChart.resize();
+    requestAnimationFrame(function () { if (bigTrendChart) bigTrendChart.resize(); });
   }
 
   function renderBigRadar(s) {
@@ -408,7 +406,7 @@
     if (bigRadarChart) bigRadarChart.dispose();
     bigRadarChart = echarts.init(el);
     bigRadarChart.setOption(_radarOption(s));
-    bigRadarChart.resize();
+    requestAnimationFrame(function () { if (bigRadarChart) bigRadarChart.resize(); });
   }
 
   function renderBigScores(s) {
