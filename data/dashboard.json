@@ -2,7 +2,7 @@
   "meta": {
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "generated_at": "2026-11-12T01:13:34+08:00",
     "weights": {
       "valuation": 0.35,
