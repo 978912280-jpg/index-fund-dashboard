@@ -2,7 +2,7 @@
   "meta": {
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "_version_comment": "三段版本号 x.y.z；每次代码迭代发版末位 +1（如 1.0.0 → 1.0.1），每日定时刷新数据不改动版本号。"
   },
   "weights": {
@@ -32,7 +32,8 @@
   "categories": {
     "overseas": "海外指数",
     "dividend": "红利低波",
-    "broad": "大盘宽基"
+    "broad": "大盘宽基",
+    "holding": "我的资产"
   },
   "items": [
     {
@@ -124,14 +125,48 @@
       "yahoo": "VWO"
     },
     {
-      "code": "515450",
-      "name": "南方红利低波50",
+      "code": "VOO",
+      "name": "标普500ETF(VOO)",
+      "category": "holding",
+      "region": "US",
+      "kind": "etf",
+      "hithink": null,
+      "tencent": "usVOO",
+      "sina_us": "VOO",
+      "yahoo": "VOO"
+    },
+    {
+      "code": "QQQM",
+      "name": "纳指100ETF(QQQM)",
+      "category": "holding",
+      "region": "US",
+      "kind": "etf",
+      "hithink": null,
+      "tencent": "usQQQM",
+      "sina_us": "QQQM",
+      "yahoo": "QQQM"
+    },
+    {
+      "code": "QQQI",
+      "name": "纳指100高收益ETF(QQQI)",
+      "category": "holding",
+      "region": "US",
+      "kind": "etf",
+      "hithink": null,
+      "tencent": "usQQQI",
+      "sina_us": "QQQI",
+      "yahoo": "QQQI"
+    },
+    {
+      "code": "008163",
+      "name": "红利低波50联接A",
       "category": "dividend",
       "region": "CN",
-      "kind": "etf",
-      "hithink": "515450.SH",
-      "tencent": "sh515450",
-      "sina_cn": "sh515450",
+      "kind": "fund",
+      "eastmoney": "008163",
+      "hithink": null,
+      "tencent": null,
+      "sina_cn": null,
       "yahoo": null
     },
     {

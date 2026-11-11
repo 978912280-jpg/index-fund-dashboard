@@ -257,6 +257,67 @@ def sina_us_history(symbol):
 
 
 # --------------------------------------------------------------------------
+# 天天基金 · 场外开放式基金单位净值历史
+# --------------------------------------------------------------------------
+
+def eastmoney_fund_history(code):
+    """场外基金单位净值历史。code 如 008163。返回 history 或 None。
+
+    场外基金无盘中 OHLC 与成交量，开/高/低/收均取单位净值，volume 置 None。
+    """
+    if not code:
+        return None
+    url = f"https://fund.eastmoney.com/pingzhongdata/{code}.js"
+    headers = dict(UA)
+    headers["Referer"] = "https://fund.eastmoney.com/"
+    r = _get(url, headers=headers, timeout=12)
+    if r is None:
+        return None
+    text = r.text
+    m = re.search(r"Data_netWorthTrend\s*=\s*", text)
+    if not m:
+        return None
+    i = m.end()
+    depth, instr, esc, end = 0, False, False, None
+    for j in range(i, len(text)):
+        c = text[j]
+        if instr:
+            if esc:
+                esc = False
+            elif c == "\\":
+                esc = True
+            elif c == '"':
+                instr = False
+        else:
+            if c == '"':
+                instr = True
+            elif c == "[":
+                depth += 1
+            elif c == "]":
+                depth -= 1
+                if depth == 0:
+                    end = j + 1
+                    break
+    if end is None:
+        return None
+    try:
+        arr = json.loads(text[i:end])
+    except ValueError:
+        return None
+    out = []
+    for it in arr:
+        ts = it.get("x")
+        nav = _f(it.get("y"))
+        if ts is None or nav is None:
+            continue
+        d = time.strftime("%Y-%m-%d", time.gmtime(ts / 1000))
+        out.append({"date": d, "open": nav, "high": nav,
+                    "low": nav, "close": nav, "volume": None})
+    out.sort(key=lambda x: x["date"])
+    return out[-750:] if out else None
+
+
+# --------------------------------------------------------------------------
 # Yahoo chart 兜底（海外市场；Actions 海外 runner 可达，本地国内网络可能不通）
 # --------------------------------------------------------------------------
 

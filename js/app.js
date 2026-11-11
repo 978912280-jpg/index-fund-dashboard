@@ -103,7 +103,8 @@
 
     body.innerHTML = items.map(function (it, idx) {
       var s = it.signals || {};
-      var sub = (it.region || "") + " · " + (it.kind === "etf" ? "ETF" : "指数");
+      var kindLabel = it.kind === "etf" ? "ETF" : (it.kind === "fund" ? "基金" : "指数");
+      var sub = (it.region || "") + " · " + kindLabel;
       var score = it.score === null || it.score === undefined ? "—" : fmt(it.score, 1);
       return '<tr data-idx="' + indexOf(it) + '">' +
         '<td><div class="cell-name">' + escapeHtml(it.name) + "</div>" +

@@ -35,7 +35,12 @@ def fetch_one(item, cfg):
     is_cn = item["region"] == "CN"
     snapshot, history, note = None, None, []
 
-    if is_cn:
+    if item.get("kind") == "fund":
+        history = sources.eastmoney_fund_history(
+            item.get("eastmoney") or item["code"])
+        if history:
+            note.append("历史:天天基金(净值)")
+    elif is_cn:
         snapshot = sources.hithink_snapshot(item, cfg)
         if snapshot is None:
             snapshot = sources.tencent_realtime(item.get("tencent"))
