@@ -6,7 +6,7 @@
   var trendChart = null;
   var bigTrendChart = null;
   // 与 index.html 静态资源版本号同步，用于破除 dashboard.json 浏览器缓存
-  var ASSET_VER = "20261113o";
+  var ASSET_VER = "20261113p";
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -344,6 +344,10 @@
             lines.push("最低：" + fmt(rec.low));
             lines.push("最高：" + fmt(rec.high));
           }
+          var m100 = ma100[p.dataIndex];
+          var m250 = ma250[p.dataIndex];
+          if (m100 !== null && m100 !== undefined) lines.push("MA100：" + fmt(m100, 2));
+          if (m250 !== null && m250 !== undefined) lines.push("MA250：" + fmt(m250, 2));
           if (chg !== null) {
             var sign = chg >= 0 ? "+" : "";
             var color = chg >= 0 ? "#2e7d32" : "#b71c1c";
@@ -354,7 +358,15 @@
       },
       legend: {
         top: 0, right: 0, textStyle: { color: "#6b7280", fontSize: 12 },
-        data: ["MA100", "MA250"]
+        data: ["MA100", "MA250"],
+        formatter: function (name) {
+          var arr = name === "MA100" ? ma100 : ma250;
+          var last = null;
+          for (var i = arr.length - 1; i >= 0; i--) {
+            if (arr[i] !== null && arr[i] !== undefined) { last = arr[i]; break; }
+          }
+          return name + " " + (last === null ? "—" : fmt(last, 2));
+        }
       },
       xAxis: {
         type: "category", data: dates, boundaryGap: true,
