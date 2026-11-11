@@ -47,7 +47,8 @@ fund-dashboard/
 ├── scripts/
 │   ├── sources.py              # 多源取数适配层（同花顺/腾讯/新浪/Yahoo）
 │   ├── analyze.py              # 指标计算与四维打分、五档评级
-│   └── build.py                # 主流程：取数 -> 打分 -> 输出 JSON
+│   ├── report.py               # 每日规则化总结报告（情绪概览/分组要点/分类汇总）
+│   └── build.py                # 主流程：取数 -> 打分 -> 生成报告 -> 输出 JSON
 ├── data/
 │   ├── dashboard.json          # 前端主数据（每日生成）
 │   └── history/<code>.json     # 完整历史日线快照
