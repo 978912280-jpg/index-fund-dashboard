@@ -179,6 +179,9 @@ button { font-family: inherit; }
   padding: 16px;
   z-index: 50;
 }
+.modal-mask[hidden] {
+  display: none !important;
+}
 .modal {
   background: var(--card);
   border-radius: var(--radius);
