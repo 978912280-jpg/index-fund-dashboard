@@ -5,6 +5,8 @@
   var state = { data: null, filter: "all", current: null };
   var trendChart = null;
   var radarChart = null;
+  var bigTrendChart = null;
+  var bigRadarChart = null;
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -185,10 +187,10 @@
       '<span class="badge rating-' + escapeHtml(it.rating) + '">' + escapeHtml(it.rating) + "</span>" +
       (it.note ? '<span class="muted">' + escapeHtml(it.note) + "</span>" : "");
 
-    loadAndRenderTrend(it);
-    renderRadar(s);
     renderMetrics(it);
     $("modal-mask").hidden = false;
+    loadAndRenderTrend(it);
+    requestAnimationFrame(function () { renderRadar(s); });
   }
 
   function closeDetail() {
@@ -203,7 +205,10 @@
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();
       })
-      .then(function (d) { renderKline(d.history || []); })
+      .then(function (d) {
+        it._hist = d.history || [];
+        renderKline(it._hist);
+      })
       .catch(function () { renderLineFallback(it.history || []); });
   }
 
@@ -218,10 +223,7 @@
     return out;
   }
 
-  function renderKline(hist) {
-    var el = $("chart-trend");
-    if (trendChart) trendChart.dispose();
-    trendChart = echarts.init(el);
+  function _klineOption(hist) {
     var WINDOW = 120;
     var data = hist.slice(-WINDOW);
     var dates = data.map(function (h) { return h.date; });
@@ -229,7 +231,7 @@
     var closes = hist.map(function (h) { return h.close; });
     var ma100 = _sma(closes, 100).slice(-WINDOW);
     var ma250 = _sma(closes, 250).slice(-WINDOW);
-    trendChart.setOption({
+    return {
       grid: { left: 12, right: 16, top: 28, bottom: 28, containLabel: true },
       tooltip: { trigger: "axis", confine: true, axisPointer: { type: "cross" } },
       legend: {
@@ -261,7 +263,15 @@
           lineStyle: { width: 1.5, color: "#e65100" }
         }
       ]
-    });
+    };
+  }
+
+  function renderKline(hist) {
+    var el = $("chart-trend");
+    if (trendChart) trendChart.dispose();
+    trendChart = echarts.init(el);
+    trendChart.setOption(_klineOption(hist));
+    trendChart.resize();
   }
 
   function renderLineFallback(hist) {
@@ -289,11 +299,8 @@
     });
   }
 
-  function renderRadar(s) {
-    var el = $("chart-radar");
-    if (radarChart) radarChart.dispose();
-    radarChart = echarts.init(el);
-    radarChart.setOption({
+  function _radarOption(s) {
+    return {
       tooltip: { confine: true },
       radar: {
         indicator: [
@@ -321,7 +328,15 @@
           areaStyle: { color: "rgba(37,99,168,0.15)" }
         }]
       }]
-    });
+    };
+  }
+
+  function renderRadar(s) {
+    var el = $("chart-radar");
+    if (radarChart) radarChart.dispose();
+    radarChart = echarts.init(el);
+    radarChart.setOption(_radarOption(s));
+    radarChart.resize();
   }
 
   function renderMetrics(it) {
@@ -342,6 +357,76 @@
     }).join("");
   }
 
+  // ---------- 大屏放大 ----------
+  function openBigScreen() {
+    var it = state.current;
+    if (!it) return;
+    $("big-title").textContent = it.name + "（" + it.code + "）";
+    $("big-mask").hidden = false;
+    renderBigRadar(it.signals || {});
+    renderBigScores(it.signals || {});
+    if (it._hist) {
+      renderBigKline(it._hist);
+    } else {
+      fetch("data/history/" + encodeURIComponent(it.code) + ".json")
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then(function (d) {
+          it._hist = d.history || [];
+          renderBigKline(it._hist);
+        })
+        .catch(function () { /* 大屏 K 线留空 */ });
+    }
+    requestAnimationFrame(function () {
+      if (bigTrendChart) bigTrendChart.resize();
+      if (bigRadarChart) bigRadarChart.resize();
+    });
+  }
+
+  function closeBigScreen() {
+    $("big-mask").hidden = true;
+    if (bigTrendChart) { bigTrendChart.dispose(); bigTrendChart = null; }
+    if (bigRadarChart) { bigRadarChart.dispose(); bigRadarChart = null; }
+  }
+
+  function renderBigKline(hist) {
+    var el = $("big-trend");
+    if (bigTrendChart) bigTrendChart.dispose();
+    bigTrendChart = echarts.init(el);
+    bigTrendChart.setOption(_klineOption(hist));
+    bigTrendChart.resize();
+  }
+
+  function renderBigRadar(s) {
+    var el = $("big-radar");
+    if (bigRadarChart) bigRadarChart.dispose();
+    bigRadarChart = echarts.init(el);
+    bigRadarChart.setOption(_radarOption(s));
+    bigRadarChart.resize();
+  }
+
+  function renderBigScores(s) {
+    var dims = [
+      ["估值", s.valuation],
+      ["技术", s.technical],
+      ["低拥挤", s.crowding === null ? null : 100 - s.crowding],
+      ["风险", s.risk]
+    ];
+    $("big-scores").innerHTML = dims.map(function (d) {
+      var v = d[1];
+      var valid = v !== null && v !== undefined && !isNaN(v);
+      var txt = valid ? fmt(v, 1) : "—";
+      var pct = valid ? Math.max(0, Math.min(100, v)) : 0;
+      return '<div class="score-row">' +
+        '<div class="score-row-top"><span class="score-row-name">' + d[0] +
+        '</span><span class="score-row-val">' + txt + "</span></div>" +
+        '<div class="score-bar"><div class="score-bar-fill" style="width:' + pct + '%"></div></div>' +
+        "</div>";
+    }).join("");
+  }
+
   // ---------- 事件绑定 ----------
   function bind() {
     $("tabs").addEventListener("click", function (e) {
@@ -359,8 +444,17 @@
     $("modal-mask").addEventListener("click", function (e) {
       if (e.target === $("modal-mask")) closeDetail();
     });
+
+    $("big-open").addEventListener("click", openBigScreen);
+    $("big-close").addEventListener("click", closeBigScreen);
+    $("big-mask").addEventListener("click", function (e) {
+      if (e.target === $("big-mask")) closeBigScreen();
+    });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeDetail();
+      if (e.key === "Escape") {
+        if (!$("big-mask").hidden) closeBigScreen();
+        else closeDetail();
+      }
     });
 
     $("toggle-disclaimer").addEventListener("click", function () {
@@ -371,6 +465,8 @@
     window.addEventListener("resize", function () {
       if (trendChart) trendChart.resize();
       if (radarChart) radarChart.resize();
+      if (bigTrendChart) bigTrendChart.resize();
+      if (bigRadarChart) bigRadarChart.resize();
     });
   }
 
