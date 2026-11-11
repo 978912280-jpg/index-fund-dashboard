@@ -6,7 +6,6 @@
   var trendChart = null;
   var radarChart = null;
   var bigTrendChart = null;
-  var bigRadarChart = null;
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -84,7 +83,11 @@
 
   // ---------- 表格 ----------
   function filtered() {
-    var items = state.data.items;
+    var items = state.data.items.slice().sort(function (a, b) {
+      var sa = (a.score === null || a.score === undefined) ? -1 : a.score;
+      var sb = (b.score === null || b.score === undefined) ? -1 : b.score;
+      return sb - sa;
+    });
     if (state.filter === "all") return items;
     return items.filter(function (it) { return it.category === state.filter; });
   }
@@ -237,7 +240,32 @@
     var ma250 = _sma(closes, 250).slice(-WINDOW);
     return {
       grid: { left: 12, right: 16, top: 28, bottom: 28, containLabel: true },
-      tooltip: { trigger: "axis", confine: true, axisPointer: { type: "cross" } },
+      tooltip: {
+        trigger: "axis",
+        confine: true,
+        axisPointer: { type: "cross" },
+        formatter: function (params) {
+          if (!params || !params.length) return "";
+          var p = params[0];
+          var d = p.data;
+          if (!d) return "";
+          var o = d[0], c = d[1], l = d[2], h = d[3];
+          var start = hist.length - WINDOW;
+          var prevClose = (start + p.dataIndex - 1 >= 0) ? closes[start + p.dataIndex - 1] : null;
+          var chg = (prevClose && c != null && prevClose) ? (c - prevClose) / prevClose * 100 : null;
+          var lines = ["<b>" + p.axisValue + "</b>"];
+          lines.push("开盘：" + fmt(o));
+          lines.push("收盘：" + fmt(c));
+          lines.push("最低：" + fmt(l));
+          lines.push("最高：" + fmt(h));
+          if (chg !== null) {
+            var sign = chg >= 0 ? "+" : "";
+            var color = chg >= 0 ? "#2e7d32" : "#b71c1c";
+            lines.push("涨跌幅：<span style='color:" + color + "'>" + sign + chg.toFixed(2) + "%</span>");
+          }
+          return lines.join("<br/>");
+        }
+      },
       legend: {
         top: 0, right: 0, textStyle: { color: "#6b7280", fontSize: 12 },
         data: ["MA100", "MA250"]
@@ -369,7 +397,6 @@
     $("big-mask").hidden = false;
     renderBigScores(it.signals || {});
     requestAnimationFrame(function () {
-      renderBigRadar(it.signals || {});
       if (it._hist) {
         renderBigKline(it._hist);
       } else {
@@ -390,7 +417,6 @@
   function closeBigScreen() {
     $("big-mask").hidden = true;
     if (bigTrendChart) { bigTrendChart.dispose(); bigTrendChart = null; }
-    if (bigRadarChart) { bigRadarChart.dispose(); bigRadarChart = null; }
   }
 
   function renderBigKline(hist) {
@@ -401,12 +427,11 @@
     requestAnimationFrame(function () { if (bigTrendChart) bigTrendChart.resize(); });
   }
 
-  function renderBigRadar(s) {
-    var el = $("big-radar");
-    if (bigRadarChart) bigRadarChart.dispose();
-    bigRadarChart = echarts.init(el);
-    bigRadarChart.setOption(_radarOption(s));
-    requestAnimationFrame(function () { if (bigRadarChart) bigRadarChart.resize(); });
+  function _scoreTone(v) {
+    if (v === null || v === undefined || isNaN(v)) return "neutral";
+    if (v >= 60) return "good";
+    if (v >= 40) return "mid";
+    return "bad";
   }
 
   function renderBigScores(s) {
@@ -419,12 +444,11 @@
     $("big-scores").innerHTML = dims.map(function (d) {
       var v = d[1];
       var valid = v !== null && v !== undefined && !isNaN(v);
+      var tone = valid ? _scoreTone(v) : "neutral";
       var txt = valid ? fmt(v, 1) : "—";
-      var pct = valid ? Math.max(0, Math.min(100, v)) : 0;
-      return '<div class="score-row">' +
-        '<div class="score-row-top"><span class="score-row-name">' + d[0] +
-        '</span><span class="score-row-val">' + txt + "</span></div>" +
-        '<div class="score-bar"><div class="score-bar-fill" style="width:' + pct + '%"></div></div>' +
+      return '<div class="bs-card bs-' + tone + '">' +
+        '<div class="bs-name">' + d[0] + "</div>" +
+        '<div class="bs-val">' + txt + "</div>" +
         "</div>";
     }).join("");
   }
@@ -468,7 +492,6 @@
       if (trendChart) trendChart.resize();
       if (radarChart) radarChart.resize();
       if (bigTrendChart) bigTrendChart.resize();
-      if (bigRadarChart) bigRadarChart.resize();
     });
   }
 

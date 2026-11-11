@@ -387,20 +387,45 @@ button { font-family: inherit; }
 }
 .big-box { border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
 .big-chart { width: 100%; height: 480px; }
-.big-radar { width: 100%; height: 300px; }
-.big-side { display: grid; grid-template-columns: 1fr; gap: 16px; }
-.big-scores { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.score-row { border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
-.score-row-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 8px;
+.big-scores {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 0 20px 16px;
 }
-.score-row-name { font-size: 13px; color: var(--muted); }
-.score-row-val { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.score-bar { height: 8px; background: var(--bg); border-radius: 999px; overflow: hidden; }
-.score-bar-fill { height: 100%; background: #2563a8; border-radius: 999px; }
+.bs-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--card); }
+.bs-name { font-size: 13px; color: var(--muted); }
+.bs-val { font-size: 22px; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.bs-good { background: #e8f5e9; border-color: #a5d6a7; }
+.bs-good .bs-val { color: #2e7d32; }
+.bs-mid { background: #f5f5f5; border-color: #e0e0e0; }
+.bs-mid .bs-val { color: #616161; }
+.bs-bad { background: #fbeaea; border-color: #ef9a9a; }
+.bs-bad .bs-val { color: #b71c1c; }
+.bs-neutral { background: #f5f5f5; }
+
+/* ---------- 计算法则说明 ---------- */
+.method { padding: 0 16px 28px; }
+.method-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.method-title { font-size: 15px; margin: 0 0 12px; }
+.method-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.method-list li { display: grid; grid-template-columns: 120px 1fr; gap: 12px; }
+.method-dim { font-weight: 600; color: var(--text); }
+.method-desc { color: var(--muted); font-size: 13px; }
+.method-formula {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+  font-size: 13px;
+}
 
 /* ---------- 页脚 ---------- */
 .footer {
@@ -420,5 +445,8 @@ button { font-family: inherit; }
   .chart-grid { grid-template-columns: 3fr 2fr; }
   .metrics-grid { grid-template-columns: repeat(4, 1fr); }
   .report-groups { grid-template-columns: repeat(3, 1fr); }
-  .big-grid { grid-template-columns: 3fr 2fr; }
+}
+
+@media (max-width: 640px) {
+  .big-scores { grid-template-columns: repeat(2, 1fr); }
 }

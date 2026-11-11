@@ -123,47 +123,14 @@
       "yahoo": "VWO"
     },
     {
-      "code": "512890",
-      "name": "红利低波ETF",
+      "code": "515450",
+      "name": "南方红利低波50",
       "category": "dividend",
       "region": "CN",
       "kind": "etf",
-      "hithink": "512890.SH",
-      "tencent": "sh512890",
-      "sina_cn": "sh512890",
-      "yahoo": null
-    },
-    {
-      "code": "510880",
-      "name": "红利ETF(上证红利)",
-      "category": "dividend",
-      "region": "CN",
-      "kind": "etf",
-      "hithink": "510880.SH",
-      "tencent": "sh510880",
-      "sina_cn": "sh510880",
-      "yahoo": null
-    },
-    {
-      "code": "515080",
-      "name": "中证红利ETF",
-      "category": "dividend",
-      "region": "CN",
-      "kind": "etf",
-      "hithink": "515080.SH",
-      "tencent": "sh515080",
-      "sina_cn": "sh515080",
-      "yahoo": null
-    },
-    {
-      "code": "159905",
-      "name": "深红利ETF",
-      "category": "dividend",
-      "region": "CN",
-      "kind": "etf",
-      "hithink": "159905.SZ",
-      "tencent": "sz159905",
-      "sina_cn": "sz159905",
+      "hithink": "515450.SH",
+      "tencent": "sh515450",
+      "sina_cn": "sh515450",
       "yahoo": null
     },
     {
