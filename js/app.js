@@ -247,10 +247,10 @@
         formatter: function (params) {
           if (!params || !params.length) return "";
           var p = params[0];
-          var d = p.data;
-          if (!d) return "";
-          var o = d[0], c = d[1], l = d[2], h = d[3];
           var start = hist.length - WINDOW;
+          var rec = hist[start + p.dataIndex];
+          if (!rec) return "";
+          var o = rec.open, c = rec.close, l = rec.low, h = rec.high;
           var prevClose = (start + p.dataIndex - 1 >= 0) ? closes[start + p.dataIndex - 1] : null;
           var chg = (prevClose && c != null && prevClose) ? (c - prevClose) / prevClose * 100 : null;
           var lines = ["<b>" + p.axisValue + "</b>"];
