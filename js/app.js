@@ -35,6 +35,8 @@
       })
       .then(function (data) {
         state.data = data;
+        state.filter = "all";
+        renderTabs();
         renderOverview();
         renderReport(data.report);
         renderTable();
@@ -58,6 +60,24 @@
     return String(s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
+  }
+
+  var CAT_ORDER = ["overseas", "dividend", "broad", "holding"];
+
+  function renderTabs() {
+    var cats = (state.data.meta && state.data.meta.categories) || {};
+    var present = {};
+    state.data.items.forEach(function (it) { present[it.category] = true; });
+    var order = CAT_ORDER.filter(function (c) { return present[c] && cats[c]; });
+    Object.keys(cats).forEach(function (c) {
+      if (order.indexOf(c) < 0 && present[c]) order.push(c);
+    });
+    var html = '<button class="tab active" data-cat="all" type="button">全部</button>';
+    order.forEach(function (c) {
+      html += '<button class="tab" data-cat="' + escapeHtml(c) +
+        '" type="button">' + escapeHtml(cats[c]) + "</button>";
+    });
+    $("tabs").innerHTML = html;
   }
 
   // ---------- 总览 ----------

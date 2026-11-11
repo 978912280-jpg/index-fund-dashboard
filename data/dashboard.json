@@ -2,8 +2,8 @@
   "meta": {
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
-    "version": "1.0.2",
-    "generated_at": "2026-11-12T01:42:09+08:00",
+    "version": "1.0.3",
+    "generated_at": "2026-11-12T01:49:24+08:00",
     "weights": {
       "valuation": 0.35,
       "technical": 0.25,
@@ -36,7 +36,7 @@
     "errors": []
   },
   "report": {
-    "generated_at": "2026-11-12T01:42:09+08:00",
+    "generated_at": "2026-11-12T01:49:24+08:00",
     "summary": {
       "total": 17,
       "valid": 14,
@@ -70,7 +70,7 @@
           "name": "纳指100高收益ETF(QQQI)",
           "score": 53.3,
           "rating": "观望",
-          "change_pct": 2.42,
+          "change_pct": 2.41,
           "reason": "价格处于历史低位（分位 24.6%）；近20日动量偏弱"
         },
         {
@@ -86,7 +86,7 @@
           "name": "道琼斯工业",
           "score": 40.2,
           "rating": "观望",
-          "change_pct": 0.29,
+          "change_pct": 0.3,
           "reason": "价格处于历史高位（分位 93.1%）；近一年回撤控制较好"
         },
         {
@@ -94,7 +94,7 @@
           "name": "标普500",
           "score": 40.0,
           "rating": "观望",
-          "change_pct": 1.51,
+          "change_pct": 1.5,
           "reason": "价格处于历史高位（分位 89.2%）；近一年回撤控制较好"
         }
       ],
@@ -128,7 +128,7 @@
           "name": "纳斯达克综合",
           "score": 37.8,
           "rating": "卖出",
-          "change_pct": 2.22,
+          "change_pct": 2.16,
           "reason": "价格处于历史高位（分位 83.1%）；近20日动量偏弱"
         },
         {
@@ -136,7 +136,7 @@
           "name": "新兴市场ETF(VWO)",
           "score": 35.3,
           "rating": "卖出",
-          "change_pct": 1.57,
+          "change_pct": 1.53,
           "reason": "价格处于历史高位（分位 77.7%）；近20日动量偏弱"
         },
         {
@@ -160,7 +160,7 @@
           "name": "纳指100ETF(QQQM)",
           "score": 30.7,
           "rating": "卖出",
-          "change_pct": 2.91,
+          "change_pct": 2.89,
           "reason": "价格处于历史高位（分位 82.9%）；近20日动量偏弱；短期成交偏拥挤"
         },
         {
@@ -190,14 +190,6 @@
         "best_score": 40.2
       },
       {
-        "category": "dividend",
-        "label": "红利低波",
-        "count": 1,
-        "avg_score": 64.5,
-        "best_name": "红利低波50联接A",
-        "best_score": 64.5
-      },
-      {
         "category": "broad",
         "label": "大盘宽基",
         "count": 5,
@@ -208,10 +200,10 @@
       {
         "category": "holding",
         "label": "我的资产",
-        "count": 3,
-        "avg_score": 41.3,
-        "best_name": "纳指100高收益ETF(QQQI)",
-        "best_score": 53.3
+        "count": 4,
+        "avg_score": 47.1,
+        "best_name": "红利低波50联接A",
+        "best_score": 64.5
       }
     ]
   },
@@ -222,12 +214,12 @@
       "category": "overseas",
       "region": "US",
       "kind": "index",
-      "price": 25622.26,
-      "change_pct": 2.22,
+      "price": 25607.83,
+      "change_pct": 2.16,
       "open": 25448.8,
       "high": 25624.92,
       "low": 25326.69,
-      "ts": "2026-11-11 12:41:19",
+      "ts": "2026-11-11 12:48:40",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 37.8,
       "rating": "卖出",
@@ -744,12 +736,12 @@
       "category": "overseas",
       "region": "US",
       "kind": "index",
-      "price": 7634.78,
-      "change_pct": 1.51,
+      "price": 7633.38,
+      "change_pct": 1.5,
       "open": 7586.65,
-      "high": 7635.35,
+      "high": 7636.72,
       "low": 7571.88,
-      "ts": "2026-11-11 12:41:40",
+      "ts": "2026-11-11 12:48:40",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 40.0,
       "rating": "观望",
@@ -1266,12 +1258,12 @@
       "category": "overseas",
       "region": "US",
       "kind": "index",
-      "price": 52384.06,
-      "change_pct": 0.29,
+      "price": 52388.72,
+      "change_pct": 0.3,
       "open": 52196.35,
-      "high": 52385.99,
+      "high": 52405.75,
       "low": 52055.14,
-      "ts": "2026-11-11 12:41:40",
+      "ts": "2026-11-11 12:48:40",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 40.2,
       "rating": "观望",
@@ -1871,7 +1863,7 @@
       "open": 69.61,
       "high": 70.02,
       "low": 69.35,
-      "ts": "2026-11-11 12:41:39",
+      "ts": "2026-11-11 12:48:59",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 38.6,
       "rating": "卖出",
@@ -2388,12 +2380,12 @@
       "category": "overseas",
       "region": "US",
       "kind": "etf",
-      "price": 57.38,
-      "change_pct": 1.57,
+      "price": 57.36,
+      "change_pct": 1.53,
       "open": 57.2,
       "high": 57.42,
       "low": 57.04,
-      "ts": "2026-11-11 12:41:38",
+      "ts": "2026-11-11 12:49:00",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 35.3,
       "rating": "卖出",
@@ -2910,12 +2902,12 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 699.74,
+      "price": 699.75,
       "change_pct": 1.49,
       "open": 695.65,
-      "high": 699.83,
+      "high": 699.95,
       "low": 693.95,
-      "ts": "2026-11-11 12:42:00",
+      "ts": "2026-11-11 12:49:00",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 39.9,
       "rating": "卖出",
@@ -3432,12 +3424,12 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 285.95,
-      "change_pct": 2.91,
+      "price": 285.9,
+      "change_pct": 2.89,
       "open": 283.01,
       "high": 286.1,
       "low": 281.49,
-      "ts": "2026-11-11 12:41:59",
+      "ts": "2026-11-11 12:48:58",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 30.7,
       "rating": "卖出",
@@ -3955,11 +3947,11 @@
       "region": "US",
       "kind": "etf",
       "price": 52.01,
-      "change_pct": 2.42,
+      "change_pct": 2.41,
       "open": 51.59,
       "high": 52.03,
       "low": 51.35,
-      "ts": "2026-11-11 12:41:56",
+      "ts": "2026-11-11 12:48:55",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 53.3,
       "rating": "观望",
@@ -4473,7 +4465,7 @@
     {
       "code": "008163",
       "name": "红利低波50联接A",
-      "category": "dividend",
+      "category": "holding",
       "region": "CN",
       "kind": "fund",
       "price": 1.0791,
