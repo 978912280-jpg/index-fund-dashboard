@@ -2,15 +2,9 @@ name: daily-data-update
 
 # 触发方式：
 # 1. 外部定时服务（cron-job.org 等）定点调用 workflow_dispatch 接口准点触发；
-# 2. schedule 作为兜底，相隔 30 分钟左右多点跑，谁先跑成谁写数据；
-# 3. 也可在 Actions 页面手动 Run workflow。
+# 2. 也可在 Actions 页面手动 Run workflow。
 on:
   workflow_dispatch:
-  schedule:
-    # cron 为 UTC 时间；以下对应北京时间 17:05 / 17:35 / 18:05（工作日）
-    - cron: "5 9 * * 1-5"
-    - cron: "35 9 * * 1-5"
-    - cron: "5 10 * * 1-5"
 
 permissions:
   contents: write
