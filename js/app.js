@@ -185,7 +185,7 @@
       '<span class="badge rating-' + escapeHtml(it.rating) + '">' + escapeHtml(it.rating) + "</span>" +
       (it.note ? '<span class="muted">' + escapeHtml(it.note) + "</span>" : "");
 
-    renderTrend(it);
+    loadAndRenderTrend(it);
     renderRadar(s);
     renderMetrics(it);
     $("modal-mask").hidden = false;
@@ -197,20 +197,90 @@
     if (radarChart) { radarChart.dispose(); radarChart = null; }
   }
 
-  function renderTrend(it) {
+  function loadAndRenderTrend(it) {
+    fetch("data/history/" + encodeURIComponent(it.code) + ".json")
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (d) { renderKline(d.history || []); })
+      .catch(function () { renderLineFallback(it.history || []); });
+  }
+
+  function _sma(values, n) {
+    var out = [];
+    var sum = 0;
+    for (var i = 0; i < values.length; i++) {
+      sum += values[i];
+      if (i >= n) sum -= values[i - n];
+      out.push(i >= n - 1 ? sum / n : null);
+    }
+    return out;
+  }
+
+  function renderKline(hist) {
     var el = $("chart-trend");
     if (trendChart) trendChart.dispose();
     trendChart = echarts.init(el);
-    var hist = it.history || [];
+    var WINDOW = 120;
+    var data = hist.slice(-WINDOW);
+    var dates = data.map(function (h) { return h.date; });
+    var ohlc = data.map(function (h) { return [h.open, h.close, h.low, h.high]; });
+    var closes = hist.map(function (h) { return h.close; });
+    var ma100 = _sma(closes, 100).slice(-WINDOW);
+    var ma250 = _sma(closes, 250).slice(-WINDOW);
+    trendChart.setOption({
+      grid: { left: 12, right: 16, top: 28, bottom: 28, containLabel: true },
+      tooltip: { trigger: "axis", confine: true, axisPointer: { type: "cross" } },
+      legend: {
+        top: 0, right: 0, textStyle: { color: "#6b7280", fontSize: 12 },
+        data: ["MA100", "MA250"]
+      },
+      xAxis: {
+        type: "category", data: dates, boundaryGap: true,
+        axisLine: { lineStyle: { color: "#d1d5db" } }, axisLabel: { color: "#6b7280" }
+      },
+      yAxis: {
+        type: "value", scale: true,
+        splitLine: { lineStyle: { color: "#eeeeee" } }, axisLabel: { color: "#6b7280" }
+      },
+      series: [
+        {
+          type: "candlestick", data: ohlc,
+          itemStyle: {
+            color: "#2e7d32", color0: "#b71c1c",
+            borderColor: "#2e7d32", borderColor0: "#b71c1c"
+          }
+        },
+        {
+          name: "MA100", type: "line", data: ma100, smooth: false, showSymbol: false,
+          lineStyle: { width: 1.5, color: "#2563a8" }
+        },
+        {
+          name: "MA250", type: "line", data: ma250, smooth: false, showSymbol: false,
+          lineStyle: { width: 1.5, color: "#e65100" }
+        }
+      ]
+    });
+  }
+
+  function renderLineFallback(hist) {
+    var el = $("chart-trend");
+    if (trendChart) trendChart.dispose();
+    trendChart = echarts.init(el);
     var dates = hist.map(function (h) { return h[0]; });
     var closes = hist.map(function (h) { return h[1]; });
     trendChart.setOption({
       grid: { left: 12, right: 16, top: 16, bottom: 28, containLabel: true },
       tooltip: { trigger: "axis", confine: true },
-      xAxis: { type: "category", data: dates, boundaryGap: false,
-        axisLine: { lineStyle: { color: "#d1d5db" } }, axisLabel: { color: "#6b7280" } },
-      yAxis: { type: "value", scale: true,
-        splitLine: { lineStyle: { color: "#eeeeee" } }, axisLabel: { color: "#6b7280" } },
+      xAxis: {
+        type: "category", data: dates, boundaryGap: false,
+        axisLine: { lineStyle: { color: "#d1d5db" } }, axisLabel: { color: "#6b7280" }
+      },
+      yAxis: {
+        type: "value", scale: true,
+        splitLine: { lineStyle: { color: "#eeeeee" } }, axisLabel: { color: "#6b7280" }
+      },
       series: [{
         type: "line", data: closes, smooth: true, showSymbol: false,
         lineStyle: { color: "#2563a8", width: 2 },
