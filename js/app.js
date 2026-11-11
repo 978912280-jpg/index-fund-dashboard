@@ -6,7 +6,7 @@
   var trendChart = null;
   var bigTrendChart = null;
   // 与 index.html 静态资源版本号同步，用于破除 dashboard.json 浏览器缓存
-  var ASSET_VER = "20261113n";
+  var ASSET_VER = "20261113o";
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -53,7 +53,7 @@
       })
       .catch(function (e) {
         $("table-body").innerHTML =
-          '<tr><td colspan="7" class="muted" style="text-align:center;padding:24px">数据加载失败：' +
+          '<tr><td colspan="8" class="muted" style="text-align:center;padding:24px">数据加载失败：' +
           escapeHtml(e.message) + "（请确认 data/dashboard.json 已生成）</td></tr>";
       });
   }
@@ -136,6 +136,7 @@
         '<td class="num muted">' + fmt(s.valuation, 1) + "</td>" +
         '<td class="num muted">' + fmt(s.technical, 1) + "</td>" +
         '<td class="num muted">' + fmt(s.crowding, 1) + "</td>" +
+        '<td class="num muted">' + fmt(s.risk, 1) + "</td>" +
         '<td><span class="score-pill"><span class="score-num">' + score + "</span>" +
         '<span class="badge rating-' + escapeHtml(it.rating) + '">' + escapeHtml(it.rating) + "</span></span></td>" +
         "</tr>";
