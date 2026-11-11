@@ -2,8 +2,8 @@
   "meta": {
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
-    "version": "1.0.8",
-    "generated_at": "2026-11-12T02:21:40+08:00",
+    "version": "1.0.9",
+    "generated_at": "2026-11-12T02:42:44+08:00",
     "weights": {
       "valuation": 0.35,
       "technical": 0.25,
@@ -34,7 +34,7 @@
     "errors": []
   },
   "report": {
-    "generated_at": "2026-11-12T02:21:40+08:00",
+    "generated_at": "2026-11-12T02:42:44+08:00",
     "summary": {
       "total": 17,
       "valid": 17,
@@ -57,7 +57,7 @@
           "name": "纳指100高收益ETF(QQQI)",
           "score": 53.3,
           "rating": "观望",
-          "change_pct": 2.43,
+          "change_pct": 2.52,
           "reason": "价格处于历史低位（分位 24.6%）；近20日动量偏弱"
         },
         {
@@ -99,7 +99,7 @@
           "name": "道琼斯工业",
           "score": 38.0,
           "rating": "卖出",
-          "change_pct": 0.41,
+          "change_pct": 0.51,
           "reason": "价格处于历史高位（分位 99.1%）；近一年回撤控制较好"
         },
         {
@@ -113,17 +113,17 @@
         {
           "code": "SPX",
           "name": "标普500",
-          "score": 36.5,
+          "score": 36.4,
           "rating": "卖出",
-          "change_pct": 1.56,
+          "change_pct": 1.66,
           "reason": "价格处于历史高位（分位 98.6%）；近一年回撤控制较好"
         },
         {
           "code": "VOO",
           "name": "标普500ETF(VOO)",
-          "score": 36.4,
+          "score": 36.0,
           "rating": "卖出",
-          "change_pct": 1.55,
+          "change_pct": 1.64,
           "reason": "价格处于历史高位（分位 97.9%）；近一年回撤控制较好"
         },
         {
@@ -131,7 +131,7 @@
           "name": "发达市场ETF(VEA)",
           "score": 33.4,
           "rating": "卖出",
-          "change_pct": 0.9,
+          "change_pct": 0.92,
           "reason": "价格处于历史高位（分位 97.5%）"
         },
         {
@@ -147,7 +147,7 @@
           "name": "新兴市场ETF(VWO)",
           "score": 32.5,
           "rating": "卖出",
-          "change_pct": 1.48,
+          "change_pct": 1.45,
           "reason": "价格处于历史高位（分位 84.9%）；近20日动量偏弱"
         },
         {
@@ -155,7 +155,7 @@
           "name": "纳斯达克综合",
           "score": 32.2,
           "rating": "卖出",
-          "change_pct": 2.18,
+          "change_pct": 2.29,
           "reason": "价格处于历史高位（分位 97.8%）；近20日动量偏弱"
         },
         {
@@ -171,7 +171,7 @@
           "name": "纳指100ETF(QQQM)",
           "score": 27.4,
           "rating": "卖出",
-          "change_pct": 2.92,
+          "change_pct": 3.04,
           "reason": "价格处于历史高位（分位 91.6%）；近20日动量偏弱；短期成交偏拥挤"
         },
         {
@@ -220,7 +220,7 @@
         "category": "holding",
         "label": "我的资产",
         "count": 4,
-        "avg_score": 40.7,
+        "avg_score": 40.6,
         "best_name": "纳指100高收益ETF(QQQI)",
         "best_score": 53.3
       }
@@ -233,22 +233,26 @@
       "category": "overseas",
       "region": "US",
       "kind": "index",
-      "price": 25612.3,
-      "change_pct": 2.18,
+      "price": 25639.09,
+      "change_pct": 2.29,
       "open": 25448.8,
-      "high": 25624.92,
+      "high": 25643.06,
       "low": 25326.69,
-      "ts": "2026-11-11 13:20:59",
+      "ts": "2026-11-11 13:41:59",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 32.2,
       "rating": "卖出",
       "signals": {
         "valuation": 2.2,
+        "valuation_basis": "price",
         "technical": 40.9,
         "crowding": 41.1,
         "risk": 49.4
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 97.8,
         "volume_ratio_5_60": 1.2,
         "ma20": 25868.69,
@@ -755,22 +759,26 @@
       "category": "overseas",
       "region": "US",
       "kind": "index",
-      "price": 7638.07,
-      "change_pct": 1.56,
+      "price": 7645.81,
+      "change_pct": 1.66,
       "open": 7586.65,
-      "high": 7638.81,
+      "high": 7646.16,
       "low": 7571.88,
-      "ts": "2026-11-11 13:20:59",
+      "ts": "2026-11-11 13:42:19",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
-      "score": 36.5,
+      "score": 36.4,
       "rating": "卖出",
       "signals": {
-        "valuation": 1.4,
+        "valuation": 1.1,
+        "valuation_basis": "cape",
         "technical": 45.4,
         "crowding": 48.2,
         "risk": 67.4
       },
       "metrics": {
+        "valuation_basis": "cape",
+        "cape": 40.71,
+        "cape_percentile": 98.9,
         "price_percentile": 98.6,
         "volume_ratio_5_60": 1.28,
         "ma20": 7630.71,
@@ -1277,22 +1285,26 @@
       "category": "overseas",
       "region": "US",
       "kind": "index",
-      "price": 52443.97,
-      "change_pct": 0.41,
+      "price": 52499.03,
+      "change_pct": 0.51,
       "open": 52196.35,
-      "high": 52448.92,
+      "high": 52500.16,
       "low": 52055.14,
-      "ts": "2026-11-11 13:20:59",
+      "ts": "2026-11-11 13:42:00",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 38.0,
       "rating": "卖出",
       "signals": {
         "valuation": 0.9,
+        "valuation_basis": "price",
         "technical": 62.2,
         "crowding": 62.9,
         "risk": 66.1
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 99.1,
         "volume_ratio_5_60": 1.56,
         "ma20": 52204.35,
@@ -1810,11 +1822,15 @@
       "rating": "卖出",
       "signals": {
         "valuation": 10.2,
+        "valuation_basis": "price",
         "technical": 36.5,
         "crowding": 43.5,
         "risk": 16.1
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 89.8,
         "volume_ratio_5_60": 1.44,
         "ma20": 63243.32,
@@ -2332,11 +2348,15 @@
       "rating": "观望",
       "signals": {
         "valuation": 0.0,
+        "valuation_basis": "price",
         "technical": 82.0,
         "crowding": 49.9,
         "risk": 57.2
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 100.0,
         "volume_ratio_5_60": 1.07,
         "ma20": 25804.88,
@@ -2854,11 +2874,15 @@
       "rating": "卖出",
       "signals": {
         "valuation": 24.3,
+        "valuation_basis": "price",
         "technical": 39.1,
         "crowding": 45.9,
         "risk": 40.8
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 75.7,
         "volume_ratio_5_60": 1.21,
         "ma20": 23759.06,
@@ -3365,22 +3389,26 @@
       "category": "overseas",
       "region": "US",
       "kind": "etf",
-      "price": 69.99,
-      "change_pct": 0.9,
+      "price": 70.0,
+      "change_pct": 0.92,
       "open": 69.61,
       "high": 70.02,
       "low": 69.35,
-      "ts": "2026-11-11 13:20:59",
+      "ts": "2026-11-11 13:42:17",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 33.4,
       "rating": "卖出",
       "signals": {
         "valuation": 2.5,
+        "valuation_basis": "price",
         "technical": 45.9,
         "crowding": 49.0,
         "risk": 53.4
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 97.5,
         "volume_ratio_5_60": 1.23,
         "ma20": 69.53,
@@ -3887,22 +3915,26 @@
       "category": "overseas",
       "region": "US",
       "kind": "etf",
-      "price": 57.33,
-      "change_pct": 1.48,
+      "price": 57.31,
+      "change_pct": 1.45,
       "open": 57.2,
       "high": 57.42,
       "low": 57.04,
-      "ts": "2026-11-11 13:21:18",
+      "ts": "2026-11-11 13:42:07",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 32.5,
       "rating": "卖出",
       "signals": {
         "valuation": 15.1,
+        "valuation_basis": "price",
         "technical": 30.5,
         "crowding": 59.1,
         "risk": 54.0
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 84.9,
         "volume_ratio_5_60": 1.71,
         "ma20": 56.81,
@@ -4409,22 +4441,26 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 700.18,
-      "change_pct": 1.55,
+      "price": 700.8,
+      "change_pct": 1.64,
       "open": 695.65,
-      "high": 700.18,
+      "high": 700.8,
       "low": 693.95,
-      "ts": "2026-11-11 13:21:20",
+      "ts": "2026-11-11 13:42:19",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
-      "score": 36.4,
+      "score": 36.0,
       "rating": "卖出",
       "signals": {
-        "valuation": 2.1,
+        "valuation": 1.1,
+        "valuation_basis": "cape",
         "technical": 45.4,
         "crowding": 50.0,
         "risk": 67.2
       },
       "metrics": {
+        "valuation_basis": "cape",
+        "cape": 40.71,
+        "cape_percentile": 98.9,
         "price_percentile": 97.9,
         "volume_ratio_5_60": 1.33,
         "ma20": 699.27,
@@ -4931,22 +4967,26 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 285.98,
-      "change_pct": 2.92,
+      "price": 286.31,
+      "change_pct": 3.04,
       "open": 283.01,
-      "high": 286.1,
+      "high": 286.34,
       "low": 281.49,
-      "ts": "2026-11-11 13:21:19",
+      "ts": "2026-11-11 13:42:19",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 27.4,
       "rating": "卖出",
       "signals": {
         "valuation": 8.4,
+        "valuation_basis": "price",
         "technical": 39.2,
         "crowding": 74.1,
         "risk": 43.0
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 91.6,
         "volume_ratio_5_60": 2.23,
         "ma20": 288.61,
@@ -5453,22 +5493,26 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 52.02,
-      "change_pct": 2.43,
+      "price": 52.06,
+      "change_pct": 2.52,
       "open": 51.59,
-      "high": 52.03,
+      "high": 52.08,
       "low": 51.35,
-      "ts": "2026-11-11 13:21:19",
+      "ts": "2026-11-11 13:42:15",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 53.3,
       "rating": "观望",
       "signals": {
         "valuation": 75.4,
+        "valuation_basis": "price",
         "technical": 25.9,
         "crowding": 42.7,
         "risk": 47.3
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 24.6,
         "volume_ratio_5_60": 1.69,
         "ma20": 52.58,
@@ -5986,11 +6030,15 @@
       "rating": "观望",
       "signals": {
         "valuation": 18.4,
+        "valuation_basis": "price",
         "technical": 62.8,
         "crowding": 51.8,
         "risk": 65.3
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 81.6,
         "volume_ratio_5_60": 1.39,
         "ma20": 1.46,
@@ -6508,11 +6556,15 @@
       "rating": "观望",
       "signals": {
         "valuation": 41.2,
+        "valuation_basis": "price",
         "technical": 20.5,
         "crowding": 33.3,
         "risk": 56.6
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 58.8,
         "volume_ratio_5_60": 0.99,
         "ma20": 2767.12,
@@ -7030,11 +7082,15 @@
       "rating": "卖出",
       "signals": {
         "valuation": 41.5,
+        "valuation_basis": "price",
         "technical": 14.7,
         "crowding": 29.6,
         "risk": 39.1
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 58.5,
         "volume_ratio_5_60": 0.98,
         "ma20": 4083.34,
@@ -7552,11 +7608,15 @@
       "rating": "卖出",
       "signals": {
         "valuation": 37.5,
+        "valuation_basis": "price",
         "technical": 27.2,
         "crowding": 27.4,
         "risk": 5.4
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 62.5,
         "volume_ratio_5_60": 0.9,
         "ma20": 6636.61,
@@ -8074,11 +8134,15 @@
       "rating": "卖出",
       "signals": {
         "valuation": 40.0,
+        "valuation_basis": "price",
         "technical": 28.7,
         "crowding": 29.5,
         "risk": 4.7
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 60.0,
         "volume_ratio_5_60": 0.97,
         "ma20": 6553.07,
@@ -8596,11 +8660,15 @@
       "rating": "卖出",
       "signals": {
         "valuation": 38.3,
+        "valuation_basis": "price",
         "technical": 10.5,
         "crowding": 27.0,
         "risk": 0.0
       },
       "metrics": {
+        "valuation_basis": "price",
+        "cape": null,
+        "cape_percentile": null,
         "price_percentile": 61.7,
         "volume_ratio_5_60": 1.08,
         "ma20": 2585.06,
