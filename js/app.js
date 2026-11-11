@@ -6,7 +6,7 @@
   var trendChart = null;
   var bigTrendChart = null;
   // 与 index.html 静态资源版本号同步，用于破除 dashboard.json 浏览器缓存
-  var ASSET_VER = "20261113q";
+  var ASSET_VER = "20261113r";
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -133,7 +133,7 @@
         '<div class="cell-sub">' + escapeHtml(sub) + "</div></td>" +
         '<td class="num">' + fmt(it.price) + "</td>" +
         '<td class="num ' + pctClass(it.change_pct) + '">' + fmtPct(it.change_pct) + "</td>" +
-        '<td class="num muted">' + fmt(s.valuation, 1) + "</td>" +
+        '<td class="num muted" title="' + escapeHtml(s.valuation_basis === "cape" ? "估值口径：CAPE（席勒PE）历史分位" : "估值口径：价格历史分位") + '">' + fmt(s.valuation, 1) + "</td>" +
         '<td class="num muted">' + fmt(s.technical, 1) + "</td>" +
         '<td class="num muted">' + fmt(s.crowding, 1) + "</td>" +
         '<td class="num muted">' + fmt(s.risk, 1) + "</td>" +
@@ -416,8 +416,14 @@
 
   function renderMetrics(it) {
     var m = it.metrics || {};
-    var rows = [
-      ["价格历史分位", m.price_percentile === null ? "—" : fmt(m.price_percentile, 1) + "%"],
+    var rows = [];
+    if (m.valuation_basis === "cape") {
+      rows.push(["CAPE(席勒PE)", m.cape === null || m.cape === undefined ? "—" : fmt(m.cape, 2)]);
+      rows.push(["CAPE 历史分位", m.cape_percentile === null ? "—" : fmt(m.cape_percentile, 1) + "%"]);
+    } else {
+      rows.push(["价格历史分位", m.price_percentile === null ? "—" : fmt(m.price_percentile, 1) + "%"]);
+    }
+    rows = rows.concat([
       ["量比(5/60日)", m.volume_ratio_5_60 === null ? "—" : fmt(m.volume_ratio_5_60, 2)],
       ["RSI(14)", m.rsi14 === null ? "—" : fmt(m.rsi14, 1)],
       ["20日涨幅", m.ret20 === null ? "—" : fmtPct(m.ret20)],
@@ -425,7 +431,7 @@
       ["年化波动率", m.volatility_1y === null ? "—" : fmt(m.volatility_1y, 1) + "%"],
       ["近一年最大回撤", m.max_drawdown_1y === null ? "—" : fmt(m.max_drawdown_1y, 1) + "%"],
       ["历史样本(日)", m.history_len === null ? "—" : m.history_len]
-    ];
+    ]);
     $("modal-metrics").innerHTML = rows.map(function (r) {
       return '<div class="metric"><div class="m-label">' + r[0] + "</div>" +
         '<div class="m-value">' + r[1] + "</div></div>";
@@ -481,20 +487,22 @@
   }
 
   function renderModalScores(s) {
+    var valSub = s.valuation_basis === "cape" ? "CAPE 口径" : "价格分位";
     var dims = [
-      ["估值", s.valuation],
-      ["技术", s.technical],
-      ["低拥挤", s.crowding === null ? null : 100 - s.crowding],
-      ["风险", s.risk]
+      ["估值", s.valuation, valSub],
+      ["技术", s.technical, null],
+      ["低拥挤", s.crowding === null ? null : 100 - s.crowding, null],
+      ["风险", s.risk, null]
     ];
     $("modal-scores").innerHTML = dims.map(function (d) {
       var v = d[1];
       var valid = v !== null && v !== undefined && !isNaN(v);
       var tone = valid ? _scoreTone(v) : "neutral";
       var txt = valid ? fmt(v, 1) : "—";
+      var sub = d[2] ? '<div class="bs-sub">' + escapeHtml(d[2]) + "</div>" : "";
       return '<div class="bs-card bs-' + tone + '">' +
         '<div class="bs-name">' + d[0] + "</div>" +
-        '<div class="bs-val">' + txt + "</div>" +
+        '<div class="bs-val">' + txt + "</div>" + sub +
         "</div>";
     }).join("");
   }

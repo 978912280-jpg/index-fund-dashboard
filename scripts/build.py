@@ -25,26 +25,26 @@ CN_TZ = timezone(timedelta(hours=8))
 HISTORY_KEEP = 120  # dashboard 内联保留的最近交易日条数（前端展示窗口）
 
 
-def _history_path(code):
-    return ROOT / "data" / "history" / f"{code}.json"
+def _snapshot_path(code, subdir):
+    return ROOT / "data" / subdir / f"{code}.json"
 
 
-def _load_old_history(code):
-    """读取已有历史快照；文件缺失/损坏时返回空列表，不阻断构建。"""
-    p = _history_path(code)
+def _load_old_snapshot(code, subdir, key):
+    """读取已有快照；文件缺失/损坏时返回空列表，不阻断构建。"""
+    p = _snapshot_path(code, subdir)
     if not p.exists():
         return []
     try:
         with open(p, "r", encoding="utf-8") as f:
             body = json.load(f)
-        hist = body.get("history") if isinstance(body, dict) else body
-        return hist if isinstance(hist, list) else []
+        rows = body.get(key) if isinstance(body, dict) else body
+        return rows if isinstance(rows, list) else []
     except (ValueError, OSError):
         return []
 
 
-def _merge_history(old, new):
-    """按日期合并两份升序 OHLCV 序列：老数据保留，同日以本次拉取为准。"""
+def _merge_by_date(old, new):
+    """按日期合并两份升序序列：老数据保留，同日以本次拉取为准。"""
     by_date = {}
     for row in old or []:
         if row and row.get("date"):
@@ -129,8 +129,17 @@ def main():
             snapshot, fetched, note = fetch_one(item, cfg)
             # 历史快照按日期累积：保留已有老数据，并入本次拉取的新交易日，
             # 不剔除早期记录；同日以本次拉取为准。
-            history = _merge_history(_load_old_history(item["code"]), fetched)
-            result = analyze.score_item(history, cfg)
+            history = _merge_by_date(
+                _load_old_snapshot(item["code"], "history", "history"), fetched)
+
+            # CAPE 长历史序列（仅标普500 及其跟踪 ETF 配置），按日期累积合并。
+            cape_series = None
+            if item.get("cape_source") == "shiller_sp500":
+                fetched_cape = sources.shiller_cape()
+                cape_series = _merge_by_date(
+                    _load_old_snapshot(item["code"], "cape", "cape"), fetched_cape)
+
+            result = analyze.score_item(history, cfg, cape_series)
 
             record = {
                 "code": item["code"],
@@ -164,6 +173,15 @@ def main():
                           encoding="utf-8") as f:
                     json.dump({"code": item["code"], "name": item["name"],
                                "history": history}, f, ensure_ascii=False)
+
+            # CAPE 序列落盘（累积保留）
+            if cape_series:
+                cape_dir = ROOT / "data" / "cape"
+                cape_dir.mkdir(parents=True, exist_ok=True)
+                with open(cape_dir / f"{item['code']}.json", "w",
+                          encoding="utf-8") as f:
+                    json.dump({"code": item["code"], "name": item["name"],
+                               "cape": cape_series}, f, ensure_ascii=False)
         except Exception as e:  # 单标的失败不阻断整体
             errors.append({"code": item["code"], "name": item["name"],
                            "error": str(e)})

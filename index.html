@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>指数与基金估值观察台</title>
-  <link rel="stylesheet" href="css/style.css?v=20261113q">
+  <link rel="stylesheet" href="css/style.css?v=20261113r">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f2329'/%3E%3Cpath d='M6 16 L10 10 L13 13 L18 7' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <script src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" defer></script>
-  <script src="js/app.js?v=20261113q" defer></script>
+  <script src="js/app.js?v=20261113r" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -26,7 +26,7 @@
     </div>
     <div class="disclaimer" id="disclaimer" hidden>
       <p>本页面所有评分均为规则化模型的量化输出，仅用于个人研究与记录，<strong>不构成任何投资建议</strong>。市场有风险，决策需自行判断。</p>
-      <p>估值维度以价格历史分位代理；拥挤度为量价代理口径（量比、短期涨幅、价位分位），不含份额申赎、换手率或主力资金流数据。海外部分行情来自受限免费源，仅供个人研究，数据准确性以官方披露为准。</p>
+      <p>估值维度：标普500 及其 ETF 采用 Shiller 席勒 PE（CAPE）长历史分位，其余标的以价格历史分位代理；拥挤度为量价代理口径（量比、短期涨幅、价位分位），不含份额申赎、换手率或主力资金流数据。海外部分行情来自受限免费源，仅供个人研究，数据准确性以官方披露为准。</p>
     </div>
   </header>
 
@@ -152,7 +152,7 @@
       <ul class="method-list">
         <li>
           <span class="method-dim">估值分</span>
-          <span class="method-desc">以当前收盘价在历史约 750 个交易日序列中的价格分位反向计算：价位分位越低（相对历史越便宜）得分越高。估值分 =（1 − 价格分位）× 100。</span>
+          <span class="method-desc">标普500 及其 ETF（SPX/VOO）采用 Shiller 席勒 PE（CAPE）长历史分位反向计算；其余标的以当前收盘价在历史序列中的价格分位反向计算。分位越低（相对历史越便宜）得分越高。估值分 =（1 − 分位）× 100。</span>
         </li>
         <li>
           <span class="method-dim">技术分</span>

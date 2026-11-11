@@ -409,6 +409,7 @@ button { font-family: inherit; }
 .bs-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--card); }
 .bs-name { font-size: 13px; color: var(--muted); }
 .bs-val { font-size: 22px; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.bs-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .bs-good { background: #e8f5e9; border-color: #a5d6a7; }
 .bs-good .bs-val { color: #2e7d32; }
 .bs-mid { background: #f5f5f5; border-color: #e0e0e0; }

@@ -2,7 +2,7 @@
   "meta": {
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "_version_comment": "三段版本号 x.y.z；每次代码迭代发版末位 +1（如 1.0.0 → 1.0.1），每日定时刷新数据不改动版本号。"
   },
   "weights": {
@@ -56,7 +56,8 @@
       "hithink": null,
       "tencent": "usINX",
       "sina_us": ".INX",
-      "yahoo": "^GSPC"
+      "yahoo": "^GSPC",
+      "cape_source": "shiller_sp500"
     },
     {
       "code": "DJI",
@@ -133,7 +134,8 @@
       "hithink": null,
       "tencent": "usVOO",
       "sina_us": "VOO",
-      "yahoo": "VOO"
+      "yahoo": "VOO",
+      "cape_source": "shiller_sp500"
     },
     {
       "code": "QQQM",

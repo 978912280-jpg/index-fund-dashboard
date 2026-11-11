@@ -355,3 +355,53 @@ def yahoo_history(symbol):
         })
     out.sort(key=lambda x: x["date"])
     return out or None
+
+
+# --------------------------------------------------------------------------
+# Shiller S&P 500 月度 CAPE（席勒市盈率，长历史 1871 起）
+# --------------------------------------------------------------------------
+
+SHILLER_XLS_URL = ("https://img1.wsimg.com/blobby/go/e5e77e0b-59d1-44d9-ab25-4763ac982e53/"
+                   "downloads/1449043e-a1ed-4e2e-8e9c-7b9a2a064493/ie_data.xls")
+SHILLER_XLS_FALLBACK = "http://www.econ.yale.edu/~shiller/data/ie_data.xls"
+
+
+def shiller_cape():
+    """Shiller S&P 500 月度 CAPE 序列。
+
+    返回 [{"date":"YYYY-MM-01","cape":float}, ...] 时间升序；不可用时返回 None。
+    仅适用于标普500 及其跟踪 ETF；其余指数无对应长历史免费源。
+    """
+    try:
+        import xlrd
+    except ImportError:
+        return None
+
+    raw = None
+    for url in (SHILLER_XLS_URL, SHILLER_XLS_FALLBACK):
+        r = _get(url, timeout=15)
+        if r is not None and r.content:
+            raw = r.content
+            break
+    if not raw:
+        return None
+
+    try:
+        wb = xlrd.open_workbook(file_contents=raw)
+        sh = wb.sheet_by_name("Data")
+    except Exception:
+        return None
+
+    out = []
+    for r in range(6, sh.nrows):
+        t = sh.cell_value(r, 0)
+        cape = _f(sh.cell_value(r, 12))  # M 列：Cyclically Adjusted Price Ratio
+        if not isinstance(t, float) or cape is None:
+            continue
+        y = int(t)
+        m = round((t - y) * 100)
+        if not (1 <= m <= 12):
+            continue
+        out.append({"date": f"{y:04d}-{m:02d}-01", "cape": cape})
+    out.sort(key=lambda x: x["date"])
+    return out or None

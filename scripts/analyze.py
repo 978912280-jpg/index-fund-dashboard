@@ -132,14 +132,19 @@ def _crowding(closes, volumes, pct, ret20):
     return round(_clamp(crowding), 1), round(ratio, 2) if ratio is not None else None
 
 
-def score_item(history, cfg):
-    """根据历史序列计算评级。history 为升序 OHLCV 列表。"""
+def score_item(history, cfg, cape_series=None):
+    """根据历史序列计算评级。history 为升序 OHLCV 列表。
+
+    cape_series: 可选，Shiller CAPE 月度序列 [{"date","cape"}, ...]；
+    提供时估值分改按 CAPE 历史分位计算（口径 basis=cape），否则用价格分位（basis=price）。
+    """
     if not history or len(history) < 20:
         return {
             "score": None, "rating": "数据不足",
-            "signals": {"valuation": None, "technical": None,
-                        "crowding": None, "risk": None},
-            "metrics": {}, "confidence": "low",
+            "signals": {"valuation": None, "valuation_basis": "price",
+                        "technical": None, "crowding": None, "risk": None},
+            "metrics": {"valuation_basis": "price", "cape": None, "cape_percentile": None},
+            "confidence": "low",
             "note": "历史数据不足，无法完成评分。",
         }
 
@@ -148,9 +153,19 @@ def score_item(history, cfg):
     last = closes[-1]
     n = len(closes)
 
-    # --- 估值（价格分位反向） ---
+    # --- 估值（价格分位反向；有 CAPE 序列时改用 CAPE 历史分位） ---
     pct = _percentile_rank(last, closes)
     valuation = (1 - pct) * 100 if pct is not None else None
+    valuation_basis = "price"
+    cape_val = None
+    cape_pct = None
+    if cape_series:
+        cape_vals = [c.get("cape") for c in cape_series if c.get("cape") is not None]
+        if len(cape_vals) >= 2:
+            cape_val = cape_vals[-1]
+            cape_pct = sum(1 for v in cape_vals if v <= cape_val) / len(cape_vals)
+            valuation = (1 - cape_pct) * 100
+            valuation_basis = "cape"
 
     # --- 技术面 ---
     ma20 = _sma(closes, 20)
@@ -223,6 +238,9 @@ def score_item(history, cfg):
     rating = _rating(score, cfg["thresholds"])
 
     metrics = {
+        "valuation_basis": valuation_basis,
+        "cape": round(cape_val, 2) if cape_val is not None else None,
+        "cape_percentile": round(cape_pct * 100, 1) if cape_pct is not None else None,
         "price_percentile": round(pct * 100, 1) if pct is not None else None,
         "volume_ratio_5_60": volume_ratio,
         "ma20": round(ma20, 2) if ma20 else None,
@@ -248,6 +266,7 @@ def score_item(history, cfg):
         "rating": rating,
         "signals": {
             "valuation": round(valuation, 1) if valuation is not None else None,
+            "valuation_basis": valuation_basis,
             "technical": round(technical, 1),
             "crowding": crowding,
             "risk": round(risk, 1),
