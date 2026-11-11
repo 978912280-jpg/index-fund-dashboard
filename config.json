@@ -101,6 +101,28 @@
       "yahoo": "^HSI"
     },
     {
+      "code": "VEA",
+      "name": "发达市场ETF(VEA)",
+      "category": "overseas",
+      "region": "US",
+      "kind": "etf",
+      "hithink": null,
+      "tencent": "usVEA",
+      "sina_us": "VEA",
+      "yahoo": "VEA"
+    },
+    {
+      "code": "VWO",
+      "name": "新兴市场ETF(VWO)",
+      "category": "overseas",
+      "region": "US",
+      "kind": "etf",
+      "hithink": null,
+      "tencent": "usVWO",
+      "sina_us": "VWO",
+      "yahoo": "VWO"
+    },
+    {
       "code": "512890",
       "name": "红利低波ETF",
       "category": "dividend",
