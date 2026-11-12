@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>指数与基金估值观察台</title>
-  <link rel="stylesheet" href="css/style.css?v=20261113r">
+  <link rel="stylesheet" href="css/style.css?v=20261113s">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f2329'/%3E%3Cpath d='M6 16 L10 10 L13 13 L18 7' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <script src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" defer></script>
-  <script src="js/app.js?v=20261113r" defer></script>
+  <script src="js/app.js?v=20261113s" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -26,7 +26,7 @@
     </div>
     <div class="disclaimer" id="disclaimer" hidden>
       <p>本页面所有评分均为规则化模型的量化输出，仅用于个人研究与记录，<strong>不构成任何投资建议</strong>。市场有风险，决策需自行判断。</p>
-      <p>估值维度：标普500 及其 ETF 采用 Shiller 席勒 PE（CAPE）长历史分位，其余标的以价格历史分位代理；拥挤度为量价代理口径（量比、短期涨幅、价位分位），不含份额申赎、换手率或主力资金流数据。海外部分行情来自受限免费源，仅供个人研究，数据准确性以官方披露为准。</p>
+      <p>估值维度：标普500 及其 ETF 采用 Shiller 席勒 PE（CAPE）长历史分位，其余标的以价格历史分位代理，并叠加相对年线乖离分位与估值趋势微调；拥挤度为量价代理口径（量比、短期涨幅、价位分位），不含份额申赎、换手率或主力资金流数据。海外部分行情来自受限免费源，仅供个人研究，数据准确性以官方披露为准。</p>
     </div>
   </header>
 
@@ -142,7 +142,7 @@
   </div>
 
   <footer class="footer">
-    <span>评分模型：估值 0.35 · 技术 0.25 · 拥挤度 0.15（反向）· 风险 0.25</span>
+    <span>评分模型：估值 0.27 · 技术 0.30 · 拥挤度 0.15（反向）· 风险 0.28</span>
     <span>评级分界：≥80 强烈买入 / ≥60 买入 / ≥40 观望 / ≥20 卖出 / &lt;20 强烈卖出</span>
   </footer>
 
@@ -152,7 +152,7 @@
       <ul class="method-list">
         <li>
           <span class="method-dim">估值分</span>
-          <span class="method-desc">标普500 及其 ETF（SPX/VOO）采用 Shiller 席勒 PE（CAPE）长历史分位反向计算；其余标的以当前收盘价在历史序列中的价格分位反向计算。分位越低（相对历史越便宜）得分越高。估值分 =（1 − 分位）× 100。</span>
+          <span class="method-desc">估值分由三部分合成：历史分位反向（权重 60%，CAPE 标的用席勒 PE 长历史分位，其余用价格分位）＋ 相对年线（MA250）乖离的历史分位反向（权重 40%，偏离中枢越远越贵）＋ 趋势微调（近 60 日乖离收窄/回落小幅加分、扩张/变贵小幅扣分，幅度 ±5 分内）。CAPE 标的另展示 ERP（盈利收益率 1/CAPE − 美债 10 年收益率）作为参考，不进主分。</span>
         </li>
         <li>
           <span class="method-dim">技术分</span>
@@ -167,7 +167,7 @@
           <span class="method-desc">年化波动率（近 250 日，权重 50%）与近一年最大回撤（权重 50%）合成；波动越小、回撤越浅，得分越高。</span>
         </li>
       </ul>
-      <p class="method-formula">综合分 = 估值 × 0.35 ＋ 技术 × 0.25 ＋（100 − 拥挤度）× 0.15 ＋ 风险 × 0.25；再按综合分映射五档评级（强烈买入 / 买入 / 观望 / 卖出 / 强烈卖出）。</p>
+      <p class="method-formula">综合分 = 估值 × 0.27 ＋ 技术 × 0.30 ＋（100 − 拥挤度）× 0.15 ＋ 风险 × 0.28；再按综合分映射五档评级（强烈买入 / 买入 / 观望 / 卖出 / 强烈卖出）。</p>
     </div>
   </section>
 </body>

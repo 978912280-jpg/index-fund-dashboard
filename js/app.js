@@ -6,7 +6,7 @@
   var trendChart = null;
   var bigTrendChart = null;
   // 与 index.html 静态资源版本号同步，用于破除 dashboard.json 浏览器缓存
-  var ASSET_VER = "20261113r";
+  var ASSET_VER = "20261113s";
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -133,7 +133,7 @@
         '<div class="cell-sub">' + escapeHtml(sub) + "</div></td>" +
         '<td class="num">' + fmt(it.price) + "</td>" +
         '<td class="num ' + pctClass(it.change_pct) + '">' + fmtPct(it.change_pct) + "</td>" +
-        '<td class="num muted" title="' + escapeHtml(s.valuation_basis === "cape" ? "估值口径：CAPE（席勒PE）历史分位" : "估值口径：价格历史分位") + '">' + fmt(s.valuation, 1) + "</td>" +
+        '<td class="num muted" title="' + escapeHtml(s.valuation_basis === "cape" ? "估值口径：CAPE 分位 60% + 年线乖离 40% + 趋势微调" : "估值口径：价格分位 60% + 年线乖离 40% + 趋势微调") + '">' + fmt(s.valuation, 1) + "</td>" +
         '<td class="num muted">' + fmt(s.technical, 1) + "</td>" +
         '<td class="num muted">' + fmt(s.crowding, 1) + "</td>" +
         '<td class="num muted">' + fmt(s.risk, 1) + "</td>" +
@@ -420,9 +420,13 @@
     if (m.valuation_basis === "cape") {
       rows.push(["CAPE(席勒PE)", m.cape === null || m.cape === undefined ? "—" : fmt(m.cape, 2)]);
       rows.push(["CAPE 历史分位", m.cape_percentile === null ? "—" : fmt(m.cape_percentile, 1) + "%"]);
+      rows.push(["ERP(股债溢价)", m.erp === null || m.erp === undefined ? "—" : fmt(m.erp, 2) + "%"]);
     } else {
       rows.push(["价格历史分位", m.price_percentile === null ? "—" : fmt(m.price_percentile, 1) + "%"]);
     }
+    rows.push(["年线乖离", m.bias250 === null || m.bias250 === undefined ? "—" : fmt(m.bias250, 1) + "%"]);
+    rows.push(["乖离分位", m.bias_percentile === null || m.bias_percentile === undefined ? "—" : fmt(m.bias_percentile, 1) + "%"]);
+    rows.push(["估值趋势", m.valuation_trend || "—"]);
     rows = rows.concat([
       ["量比(5/60日)", m.volume_ratio_5_60 === null ? "—" : fmt(m.volume_ratio_5_60, 2)],
       ["RSI(14)", m.rsi14 === null ? "—" : fmt(m.rsi14, 1)],
@@ -487,7 +491,7 @@
   }
 
   function renderModalScores(s) {
-    var valSub = s.valuation_basis === "cape" ? "CAPE 口径" : "价格分位";
+    var valSub = s.valuation_basis === "cape" ? "CAPE+乖离" : "分位+乖离";
     var dims = [
       ["估值", s.valuation, valSub],
       ["技术", s.technical, null],

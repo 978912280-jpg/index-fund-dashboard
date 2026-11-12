@@ -124,6 +124,9 @@ def main():
     items_out = []
     errors = []
 
+    # 美债 10 年收益率（百分数），仅供 CAPE 标的 ERP 参考展示；取不到不阻断
+    risk_free = sources.tnx_yield()
+
     for item in cfg["items"]:
         try:
             snapshot, fetched, note = fetch_one(item, cfg)
@@ -139,7 +142,7 @@ def main():
                 cape_series = _merge_by_date(
                     _load_old_snapshot(item["code"], "cape", "cape"), fetched_cape)
 
-            result = analyze.score_item(history, cfg, cape_series)
+            result = analyze.score_item(history, cfg, cape_series, risk_free)
 
             record = {
                 "code": item["code"],

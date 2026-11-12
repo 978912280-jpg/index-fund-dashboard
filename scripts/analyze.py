@@ -22,6 +22,17 @@ def _sma(values, n):
     return sum(values[-n:]) / n
 
 
+def _rolling_ma(values, n):
+    """截至当日的滚动均线序列；不足 n 日的位置为 None。"""
+    out = []
+    for i in range(len(values)):
+        if i + 1 < n:
+            out.append(None)
+        else:
+            out.append(sum(values[i - n + 1:i + 1]) / n)
+    return out
+
+
 def _ema_series(values, n):
     if not values:
         return []
@@ -132,18 +143,21 @@ def _crowding(closes, volumes, pct, ret20):
     return round(_clamp(crowding), 1), round(ratio, 2) if ratio is not None else None
 
 
-def score_item(history, cfg, cape_series=None):
+def score_item(history, cfg, cape_series=None, risk_free=None):
     """根据历史序列计算评级。history 为升序 OHLCV 列表。
 
     cape_series: 可选，Shiller CAPE 月度序列 [{"date","cape"}, ...]；
     提供时估值分改按 CAPE 历史分位计算（口径 basis=cape），否则用价格分位（basis=price）。
+    risk_free: 可选，美债 10 年收益率（百分数），仅用于 CAPE 标的 ERP 参考展示。
     """
     if not history or len(history) < 20:
         return {
             "score": None, "rating": "数据不足",
             "signals": {"valuation": None, "valuation_basis": "price",
                         "technical": None, "crowding": None, "risk": None},
-            "metrics": {"valuation_basis": "price", "cape": None, "cape_percentile": None},
+            "metrics": {"valuation_basis": "price", "cape": None, "cape_percentile": None,
+                        "bias250": None, "bias_percentile": None, "valuation_trend": None,
+                        "erp": None, "risk_free_rate": None},
             "confidence": "low",
             "note": "历史数据不足，无法完成评分。",
         }
@@ -153,19 +167,63 @@ def score_item(history, cfg, cape_series=None):
     last = closes[-1]
     n = len(closes)
 
-    # --- 估值（价格分位反向；有 CAPE 序列时改用 CAPE 历史分位） ---
+    # --- 估值：分位反向 60% + 年线乖离分位 40% + 趋势微调 ---
     pct = _percentile_rank(last, closes)
-    valuation = (1 - pct) * 100 if pct is not None else None
+    pct_score = (1 - pct) * 100 if pct is not None else None
     valuation_basis = "price"
     cape_val = None
     cape_pct = None
+
+    # 中枢乖离：优先 MA250，样本不足退化为 MA60
+    bias250 = None
+    bias_pct = None
+    bias_score = 50.0
+    bias_window = 250
+    ma_ref = _sma(closes, 250)
+    if ma_ref is None:
+        ma_ref = _sma(closes, 60)
+        bias_window = 60
+    if ma_ref is not None:
+        bias250 = last / ma_ref - 1
+        ma_series = _rolling_ma(closes, bias_window)
+        bias_series = [c / m - 1 for c, m in zip(closes, ma_series) if m]
+        if len(bias_series) >= 2:
+            bias_pct = sum(1 for b in bias_series if b <= bias250) / len(bias_series)
+            bias_score = (1 - bias_pct) * 100
+
+    # 趋势微调：当前乖离对比 60 日前；收窄（回落）加分，扩张（变贵）扣分，幅度 ±5
+    trend_adj = 0.0
+    trend_label = None
+    if bias250 is not None and len(closes) >= bias_window + 60:
+        ma_ago = _sma(closes[:-60], bias_window)
+        if ma_ago:
+            bias_ago = closes[-61] / ma_ago - 1
+            delta = bias250 - bias_ago
+            trend_adj = _clamp(-delta / 0.10 * 5, -5, 5)
+            if delta < -0.005:
+                trend_label = "回落"
+            elif delta > 0.005:
+                trend_label = "走阔"
+            else:
+                trend_label = "持平"
+
     if cape_series:
         cape_vals = [c.get("cape") for c in cape_series if c.get("cape") is not None]
         if len(cape_vals) >= 2:
             cape_val = cape_vals[-1]
             cape_pct = sum(1 for v in cape_vals if v <= cape_val) / len(cape_vals)
-            valuation = (1 - cape_pct) * 100
+            pct_score = (1 - cape_pct) * 100
             valuation_basis = "cape"
+
+    if pct_score is not None:
+        valuation = _clamp(0.6 * pct_score + 0.4 * bias_score + trend_adj)
+    else:
+        valuation = None
+
+    # ERP（仅 CAPE 口径展示，不进主分）：盈利收益率 1/CAPE − 无风险利率
+    erp = None
+    if valuation_basis == "cape" and cape_val and risk_free is not None:
+        erp = (1 / cape_val - risk_free / 100) * 100
 
     # --- 技术面 ---
     ma20 = _sma(closes, 20)
@@ -242,6 +300,11 @@ def score_item(history, cfg, cape_series=None):
         "cape": round(cape_val, 2) if cape_val is not None else None,
         "cape_percentile": round(cape_pct * 100, 1) if cape_pct is not None else None,
         "price_percentile": round(pct * 100, 1) if pct is not None else None,
+        "bias250": round(bias250 * 100, 1) if bias250 is not None else None,
+        "bias_percentile": round(bias_pct * 100, 1) if bias_pct is not None else None,
+        "valuation_trend": trend_label,
+        "erp": round(erp, 2) if erp is not None else None,
+        "risk_free_rate": round(risk_free, 2) if risk_free is not None else None,
         "volume_ratio_5_60": volume_ratio,
         "ma20": round(ma20, 2) if ma20 else None,
         "ma60": round(ma60, 2) if ma60 else None,

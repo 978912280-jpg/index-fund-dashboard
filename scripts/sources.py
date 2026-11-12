@@ -357,6 +357,25 @@ def yahoo_history(symbol):
     return out or None
 
 
+def tnx_yield():
+    """美债 10 年期国债收益率（百分数，如 4.35 表示 4.35%）。
+
+    仅用于 CAPE 标的的股权风险溢价（ERP）参考展示；不可用返回 None。
+    走 Yahoo chart，需 Actions 海外 runner 可达。
+    """
+    url = "https://query1.finance.yahoo.com/v8/finance/chart/%5ETNX"
+    r = _get(url, params={"range": "1mo", "interval": "1d"}, timeout=12)
+    if r is None:
+        return None
+    try:
+        res = r.json()["chart"]["result"][0]
+        closes = (res.get("indicators", {}).get("quote") or [{}])[0].get("close") or []
+        closes = [c for c in closes if c is not None]
+        return _f(closes[-1]) if closes else None
+    except (ValueError, KeyError, IndexError, TypeError):
+        return None
+
+
 # --------------------------------------------------------------------------
 # Shiller S&P 500 月度 CAPE（席勒市盈率，长历史 1871 起）
 # --------------------------------------------------------------------------
