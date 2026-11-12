@@ -86,6 +86,10 @@ def fetch_one(item, cfg):
                                               cfg["history_window"]["trading_days"])
             if history:
                 note.append("历史:新浪(免费源)")
+        if history is None:
+            history = sources.yahoo_history(item.get("yahoo"))
+            if history:
+                note.append("历史:Yahoo(兜底源)")
         else:
             note.append("历史:同花顺")
     else:
@@ -94,12 +98,12 @@ def fetch_one(item, cfg):
             note.append("实时:腾讯(免费源)")
 
         history = sources.sina_us_history(item.get("sina_us"))
-        if history:
+        yh = sources.yahoo_history(item.get("yahoo"))
+        if yh and (history is None or len(yh) > len(history)):
+            history = yh
+            note.append("历史:Yahoo(兜底源)")
+        elif history:
             note.append("历史:新浪美股(免费源)")
-        if history is None:
-            history = sources.yahoo_history(item.get("yahoo"))
-            if history:
-                note.append("历史:Yahoo(兜底源)")
 
     # 用历史末条补齐快照缺失字段
     if history:

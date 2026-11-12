@@ -197,14 +197,14 @@ def _parse_jsonp(text):
         return None
 
 
-def sina_cn_history(symbol, datalen=750):
+def sina_cn_history(symbol, datalen=1500):
     """A 股 / ETF 日线。symbol 如 sh512890 / sz159905。"""
     if not symbol:
         return None
     url = ("https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_k=/"
            "CN_MarketDataService.getKLineData")
     r = _get(url, params={"symbol": symbol, "scale": 240, "ma": "no",
-                          "datalen": min(datalen, 1023)}, timeout=12)
+                          "datalen": datalen}, timeout=12)
     if r is None:
         return None
     rows = _parse_jsonp(r.text)
@@ -325,7 +325,7 @@ def yahoo_history(symbol):
     if not symbol:
         return None
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
-    r = _get(url, params={"range": "5y", "interval": "1d"}, timeout=12)
+    r = _get(url, params={"range": "6y", "interval": "1d"}, timeout=12)
     if r is None:
         return None
     try:
