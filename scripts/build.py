@@ -55,6 +55,22 @@ def _merge_by_date(old, new):
     return sorted(by_date.values(), key=lambda r: r["date"])
 
 
+def _load_score_snapshot(code, model_version):
+    """读取历史综合分快照 {date: score}；模型版本不符或损坏时返回空（强制回填）。"""
+    p = _snapshot_path(code, "scores")
+    if not p.exists():
+        return {}
+    try:
+        with open(p, "r", encoding="utf-8") as f:
+            body = json.load(f)
+        if body.get("model_version") != model_version:
+            return {}
+        return {r["date"]: r["score"] for r in body.get("scores", [])
+                if r.get("date") and r.get("score") is not None}
+    except (ValueError, OSError, AttributeError):
+        return {}
+
+
 def load_config():
     with open(ROOT / "config.json", "r", encoding="utf-8") as f:
         return json.load(f)
@@ -146,7 +162,30 @@ def main():
                 cape_series = _merge_by_date(
                     _load_old_snapshot(item["code"], "cape", "cape"), fetched_cape)
 
-            result = analyze.score_item(history, cfg, cape_series, risk_free)
+            # 历史综合分快照：按日期累积；分位定档只取近窗口交易日（更早市场结构
+            # 参考价值低，也避免长历史 O(n²) 回填）。缺失日期逐日滚动回填，模型版本
+            # 变更时整体重建。
+            model_version = cfg["meta"]["version"]
+            window = cfg["history_window"]["trading_days"]
+            old_scores = _load_score_snapshot(item["code"], model_version)
+            recent = history[-window:] if len(history) > window else history
+            start = len(history) - len(recent)
+            score_series = []
+            for i, hrow in enumerate(recent):
+                d = hrow["date"]
+                if d in old_scores:
+                    sc = old_scores[d]
+                else:
+                    r = analyze.score_item(history[:start + i + 1], cfg,
+                                           cape_series, risk_free)
+                    sc = r["score"]
+                if sc is not None:
+                    score_series.append({"date": d, "score": round(sc, 1)})
+
+            # 当日评级按“过去历史”分位定档（不含当日，无前视）。
+            past_scores = [x["score"] for x in score_series[:-1]] if score_series else []
+            result = analyze.score_item(history, cfg, cape_series, risk_free,
+                                        past_scores=past_scores)
 
             record = {
                 "code": item["code"],
@@ -180,6 +219,16 @@ def main():
                           encoding="utf-8") as f:
                     json.dump({"code": item["code"], "name": item["name"],
                                "history": history}, f, ensure_ascii=False)
+
+            # 历史综合分序列落盘（累积保留，供分位定档）
+            if score_series:
+                score_dir = ROOT / "data" / "scores"
+                score_dir.mkdir(parents=True, exist_ok=True)
+                with open(score_dir / f"{item['code']}.json", "w",
+                          encoding="utf-8") as f:
+                    json.dump({"code": item["code"], "name": item["name"],
+                               "model_version": model_version,
+                               "scores": score_series}, f, ensure_ascii=False)
 
             # CAPE 序列落盘（累积保留）
             if cape_series:

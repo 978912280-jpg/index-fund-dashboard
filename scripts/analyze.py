@@ -81,6 +81,22 @@ def _percentile_rank(last, closes):
     return below / n
 
 
+def _quantile(values, q):
+    """升序分位数（线性插值）；q∈[0,1]。"""
+    if not values:
+        return None
+    a = sorted(values)
+    n = len(a)
+    if n == 1:
+        return a[0]
+    k = (n - 1) * q
+    f = math.floor(k)
+    c = math.ceil(k)
+    if f == c:
+        return a[f]
+    return a[f] + (a[c] - a[f]) * (k - f)
+
+
 def _max_drawdown(closes, window=250):
     seg = closes[-window:]
     peak = seg[0]
@@ -143,12 +159,14 @@ def _crowding(closes, volumes, pct, ret20):
     return round(_clamp(crowding), 1), round(ratio, 2) if ratio is not None else None
 
 
-def score_item(history, cfg, cape_series=None, risk_free=None):
+def score_item(history, cfg, cape_series=None, risk_free=None, past_scores=None):
     """根据历史序列计算评级。history 为升序 OHLCV 列表。
 
     cape_series: 可选，Shiller CAPE 月度序列 [{"date","cape"}, ...]；
     提供时估值分改按 CAPE 历史分位计算（口径 basis=cape），否则用价格分位（basis=price）。
     risk_free: 可选，美债 10 年收益率（百分数），仅用于 CAPE 标的 ERP 参考展示。
+    past_scores: 可选，该标的当日之前的历史综合分列表（无前视）；阈值模式为
+    percentile 时按自身历史分位定档，并输出当日总分历史百分位。
     """
     if not history or len(history) < 20:
         return {
@@ -157,7 +175,7 @@ def score_item(history, cfg, cape_series=None, risk_free=None):
                         "technical": None, "crowding": None, "risk": None},
             "metrics": {"valuation_basis": "price", "cape": None, "cape_percentile": None,
                         "bias250": None, "bias_percentile": None, "valuation_trend": None,
-                        "erp": None, "risk_free_rate": None},
+                        "erp": None, "risk_free_rate": None, "score_percentile": None},
             "confidence": "low",
             "note": "历史数据不足，无法完成评分。",
         }
@@ -293,7 +311,12 @@ def score_item(history, cfg, cape_series=None, risk_free=None):
     score = sum(wt * sc for wt, sc in parts) / wsum if wsum else None
     score = _clamp(score) if score is not None else None
 
-    rating = _rating(score, cfg["thresholds"])
+    th = cfg["thresholds"]
+    if th.get("mode") == "percentile" and past_scores:
+        rating, score_percentile = rate_by_percentile(score, past_scores, th)
+    else:
+        rating = _rating(score, th.get("fallback", th))
+        score_percentile = None
 
     metrics = {
         "valuation_basis": valuation_basis,
@@ -318,6 +341,7 @@ def score_item(history, cfg, cape_series=None, risk_free=None):
         "volatility_1y": round(vol * 100, 1) if vol is not None else None,
         "max_drawdown_1y": round(mdd * 100, 1) if mdd is not None else None,
         "history_len": n,
+        "score_percentile": round(score_percentile, 1) if score_percentile is not None else None,
     }
 
     note = None
@@ -352,3 +376,39 @@ def _rating(score, th):
     if score >= th["sell"]:
         return "卖出"
     return "强烈卖出"
+
+
+def rate_by_percentile(score, past_scores, th):
+    """按标的自身历史综合分的分位定档（相对自身历史强弱）。
+
+    past_scores: 当日之前的历史综合分列表（无前视，不含当日）。
+    返回 (rating, score_percentile)；score_percentile 为当日总分在历史中的
+    百分位（0-100，越高越偏强）。样本不足 min_samples 时回退固定阈值，百分位为 None。
+    """
+    if score is None:
+        return "数据不足", None
+    q = th.get("quantiles", {})
+    min_samples = th.get("min_samples", 120)
+    past = [x for x in (past_scores or []) if x is not None]
+    if len(past) < min_samples:
+        return _rating(score, th.get("fallback", th)), None
+
+    sb = _quantile(past, q.get("strong_buy", 0.95))
+    b = _quantile(past, q.get("buy", 0.75))
+    s = _quantile(past, q.get("sell", 0.25))
+    ss = _quantile(past, q.get("strong_sell", 0.10))
+
+    below = sum(1 for x in past if x <= score)
+    pct = below / len(past) * 100
+
+    if score >= sb:
+        rating = "强烈买入"
+    elif score >= b:
+        rating = "买入"
+    elif score > s:
+        rating = "观望"
+    elif score > ss:
+        rating = "卖出"
+    else:
+        rating = "强烈卖出"
+    return rating, round(pct, 1)

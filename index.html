@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>指数与基金估值观察台</title>
-  <link rel="stylesheet" href="css/style.css?v=20261113s">
+  <link rel="stylesheet" href="css/style.css?v=20261113t">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f2329'/%3E%3Cpath d='M6 16 L10 10 L13 13 L18 7' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <script src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" defer></script>
-  <script src="js/app.js?v=20261113s" defer></script>
+  <script src="js/app.js?v=20261113t" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -143,7 +143,7 @@
 
   <footer class="footer">
     <span>评分模型：估值 0.27 · 技术 0.30 · 拥挤度 0.15（反向）· 风险 0.28</span>
-    <span>评级分界：≥80 强烈买入 / ≥60 买入 / ≥40 观望 / ≥20 卖出 / &lt;20 强烈卖出</span>
+    <span>评级分界（按标的自身历史综合分分位）：前 5% 强烈买入 / 前 25% 买入 / 中间 50% 观望 / 后 25% 卖出 / 后 10% 强烈卖出；历史不足 120 日时按固定分数线兜底</span>
   </footer>
 
   <section class="method" aria-label="评分维度计算法则">
@@ -167,7 +167,7 @@
           <span class="method-desc">年化波动率（近 250 日，权重 50%）与近一年最大回撤（权重 50%）合成；波动越小、回撤越浅，得分越高。</span>
         </li>
       </ul>
-      <p class="method-formula">综合分 = 估值 × 0.27 ＋ 技术 × 0.30 ＋（100 − 拥挤度）× 0.15 ＋ 风险 × 0.28；再按综合分映射五档评级（强烈买入 / 买入 / 观望 / 卖出 / 强烈卖出）。</p>
+      <p class="method-formula">综合分 = 估值 × 0.27 ＋ 技术 × 0.30 ＋（100 − 拥挤度）× 0.15 ＋ 风险 × 0.28；再按该标的自身历史综合分的分位映射五档评级（≥p95 强烈买入 / ≥p75 买入 / p25~p75 观望 / p10~p25 卖出 / &lt;p10 强烈卖出），分位基于近 1500 个交易日、不含当日。</p>
     </div>
   </section>
 </body>

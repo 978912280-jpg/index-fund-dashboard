@@ -6,7 +6,7 @@
   var trendChart = null;
   var bigTrendChart = null;
   // 与 index.html 静态资源版本号同步，用于破除 dashboard.json 浏览器缓存
-  var ASSET_VER = "20261113s";
+  var ASSET_VER = "20261113t";
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -128,6 +128,8 @@
       var kindLabel = it.kind === "etf" ? "ETF" : (it.kind === "fund" ? "基金" : "指数");
       var sub = (it.region || "") + " · " + kindLabel;
       var score = it.score === null || it.score === undefined ? "—" : fmt(it.score, 1);
+      var sp = it.metrics ? it.metrics.score_percentile : null;
+      var spText = (sp === null || sp === undefined) ? "分位 —" : "分位 " + fmt(sp, 1) + "%";
       return '<tr data-idx="' + indexOf(it) + '">' +
         '<td><div class="cell-name">' + escapeHtml(it.name) + "</div>" +
         '<div class="cell-sub">' + escapeHtml(sub) + "</div></td>" +
@@ -138,7 +140,8 @@
         '<td class="num muted">' + fmt(s.crowding, 1) + "</td>" +
         '<td class="num muted">' + fmt(s.risk, 1) + "</td>" +
         '<td><span class="score-pill"><span class="score-num">' + score + "</span>" +
-        '<span class="badge rating-' + escapeHtml(it.rating) + '">' + escapeHtml(it.rating) + "</span></span></td>" +
+        '<span class="badge rating-' + escapeHtml(it.rating) + '">' + escapeHtml(it.rating) + "</span></span>" +
+        '<div class="cell-sub">' + escapeHtml(spText) + "</div></td>" +
         "</tr>";
     }).join("");
 
@@ -417,6 +420,7 @@
   function renderMetrics(it) {
     var m = it.metrics || {};
     var rows = [];
+    rows.push(["综合分历史分位", m.score_percentile === null || m.score_percentile === undefined ? "—" : fmt(m.score_percentile, 1) + "%"]);
     if (m.valuation_basis === "cape") {
       rows.push(["CAPE(席勒PE)", m.cape === null || m.cape === undefined ? "—" : fmt(m.cape, 2)]);
       rows.push(["CAPE 历史分位", m.cape_percentile === null ? "—" : fmt(m.cape_percentile, 1) + "%"]);

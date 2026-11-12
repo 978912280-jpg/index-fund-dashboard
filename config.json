@@ -2,7 +2,7 @@
   "meta": {
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "_version_comment": "三段版本号 x.y.z；每次代码迭代发版末位 +1（如 1.0.0 → 1.0.1），每日定时刷新数据不改动版本号。"
   },
   "weights": {
@@ -13,11 +13,21 @@
     "_comment": "综合得分 = 估值分*valuation + 技术分*technical + (100-拥挤度)*crowding + 风险分*risk；四项权重之和应为 1。拥挤度为量价代理口径（量比/短期涨幅/价格分位），非份额申赎或资金流数据。"
   },
   "thresholds": {
-    "strong_buy": 80,
-    "buy": 60,
-    "hold": 40,
-    "sell": 20,
-    "_comment": "综合得分(0-100)：>=strong_buy 强烈买入；>=buy 买入；>=hold 观望；>=sell 卖出；其余 强烈卖出。"
+    "mode": "percentile",
+    "min_samples": 120,
+    "quantiles": {
+      "strong_buy": 0.95,
+      "buy": 0.75,
+      "sell": 0.25,
+      "strong_sell": 0.10
+    },
+    "fallback": {
+      "strong_buy": 80,
+      "buy": 60,
+      "hold": 40,
+      "sell": 20
+    },
+    "_comment": "分位模式：按标的自身历史综合分的分位定档——>=p95 强烈买入(前5%)；>=p75 买入(前25%)；p25~p75 观望；p10~p25 卖出；<p10 强烈卖出(后10%)。历史分数不足 min_samples 日时回退 fallback 固定绝对分数线。"
   },
   "history_window": {
     "trading_days": 1500,
