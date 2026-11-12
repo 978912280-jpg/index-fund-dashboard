@@ -81,17 +81,17 @@ def fetch_one(item, cfg):
 
         history = sources.hithink_history(item, cfg,
                                           cfg["history_window"]["trading_days"])
-        if history is None:
+        if history:
+            note.append("历史:同花顺")
+        else:
             history = sources.sina_cn_history(item.get("sina_cn"),
                                               cfg["history_window"]["trading_days"])
             if history:
                 note.append("历史:新浪(免费源)")
-        if history is None:
-            history = sources.yahoo_history(item.get("yahoo"))
-            if history:
-                note.append("历史:Yahoo(兜底源)")
-        else:
-            note.append("历史:同花顺")
+            else:
+                history = sources.yahoo_history(item.get("yahoo"))
+                if history:
+                    note.append("历史:Yahoo(兜底源)")
     else:
         snapshot = sources.tencent_realtime(item.get("tencent"))
         if snapshot:
