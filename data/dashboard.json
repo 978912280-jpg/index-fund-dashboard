@@ -3,7 +3,7 @@
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
     "version": "1.0.11",
-    "generated_at": "2026-11-12T17:04:30+08:00",
+    "generated_at": "2026-11-12T17:05:53+08:00",
     "weights": {
       "valuation": 0.27,
       "technical": 0.3,
@@ -34,7 +34,7 @@
     "errors": []
   },
   "report": {
-    "generated_at": "2026-11-12T17:04:30+08:00",
+    "generated_at": "2026-11-12T17:05:53+08:00",
     "summary": {
       "total": 17,
       "valid": 17,
@@ -65,7 +65,7 @@
           "name": "德国DAX",
           "score": 53.9,
           "rating": "观望",
-          "change_pct": 1.11,
+          "change_pct": 1.08,
           "reason": "价格处于历史高位（分位 100.0%）；近20日动量偏强"
         },
         {
@@ -195,7 +195,7 @@
     "bullets": [
       "估值低位：纳指100高收益ETF(QQQI)（分位 39.1%）",
       "估值高位：德国DAX（分位 100.0%）",
-      "技术分最高：德国DAX（84.0 分）",
+      "技术分最高：德国DAX（83.9 分）",
       "最拥挤：纳指100ETF(QQQM)（拥挤度 75.4）",
       "风险得分最高：标普500（67.5 分）"
     ],
@@ -2357,8 +2357,8 @@
       "category": "overseas",
       "region": "DE",
       "kind": "index",
-      "price": 26957.91015625,
-      "change_pct": 1.11,
+      "price": 26949.669921875,
+      "change_pct": 1.08,
       "open": 26910.5703125,
       "high": 26998.3203125,
       "low": 26905.05078125,
@@ -2367,9 +2367,9 @@
       "score": 53.9,
       "rating": "观望",
       "signals": {
-        "valuation": 16.2,
+        "valuation": 16.3,
         "valuation_basis": "price",
-        "technical": 84.0,
+        "technical": 83.9,
         "crowding": 45.0,
         "risk": 57.3
       },
@@ -2379,20 +2379,20 @@
         "cape_percentile": null,
         "price_percentile": 100.0,
         "bias250": 8.5,
-        "bias_percentile": 56.9,
+        "bias_percentile": 56.7,
         "valuation_trend": "走阔",
         "erp": null,
         "risk_free_rate": 5.0,
         "volume_ratio_5_60": 0.91,
-        "ma20": 25883.64,
-        "ma60": 25695.81,
-        "ma250": 24841.3,
-        "rsi14": 66.7,
-        "macd_dif": 305.552,
-        "macd_dea": 195.233,
-        "macd_bar": 220.638,
-        "ret20": 6.21,
-        "ret60": 3.75,
+        "ma20": 25883.23,
+        "ma60": 25695.67,
+        "ma250": 24841.27,
+        "rsi14": 66.6,
+        "macd_dif": 304.894,
+        "macd_dea": 195.101,
+        "macd_bar": 219.586,
+        "ret20": 6.17,
+        "ret60": 3.72,
         "volatility_1y": 16.1,
         "max_drawdown_1y": -12.3,
         "history_len": 1276
@@ -2878,7 +2878,7 @@
         ],
         [
           "2026-11-12",
-          26957.91015625
+          26949.669921875
         ]
       ]
     },
@@ -2893,7 +2893,7 @@
       "open": 24121.4,
       "high": 24132.2,
       "low": 23942.74,
-      "ts": "2026/11/12 16:48:05",
+      "ts": "2026/11/12 16:50:05",
       "data_source": "实时:腾讯(免费源); 历史:Yahoo(兜底源)",
       "score": 46.2,
       "rating": "观望",
