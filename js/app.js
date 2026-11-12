@@ -6,7 +6,7 @@
   var trendChart = null;
   var bigTrendChart = null;
   // 与 index.html 静态资源版本号同步，用于破除 dashboard.json 浏览器缓存
-  var ASSET_VER = "20261113t";
+  var ASSET_VER = "20261113u";
 
   var RATING_ORDER = ["强烈买入", "买入", "观望", "卖出", "强烈卖出"];
 
@@ -26,6 +26,14 @@
   function pctClass(x) {
     if (x === null || x === undefined || isNaN(x)) return "muted";
     return Number(x) >= 0 ? "pos" : "neg";
+  }
+
+  // score_percentile 为历史从低到高的排名百分位（0=最低，100=最高）；
+  // 换算成“前 XX%”（top 口径，越小越强）：top% = 100 - percentile。
+  function topPctOf(it) {
+    var p = it && it.metrics ? it.metrics.score_percentile : null;
+    if (p === null || p === undefined || isNaN(p)) return null;
+    return Math.round((100 - Number(p)) * 10) / 10;
   }
 
   // ---------- 数据加载 ----------
@@ -105,9 +113,11 @@
   // ---------- 表格 ----------
   function filtered() {
     var items = state.data.items.slice().sort(function (a, b) {
-      var sa = (a.score === null || a.score === undefined) ? -1 : a.score;
-      var sb = (b.score === null || b.score === undefined) ? -1 : b.score;
-      return sb - sa;
+      var ta = topPctOf(a);
+      var tb = topPctOf(b);
+      if (ta === null) return 1;
+      if (tb === null) return -1;
+      return ta - tb;
     });
     if (state.filter === "all") return items;
     return items.filter(function (it) { return it.category === state.filter; });
@@ -128,8 +138,8 @@
       var kindLabel = it.kind === "etf" ? "ETF" : (it.kind === "fund" ? "基金" : "指数");
       var sub = (it.region || "") + " · " + kindLabel;
       var score = it.score === null || it.score === undefined ? "—" : fmt(it.score, 1);
-      var sp = it.metrics ? it.metrics.score_percentile : null;
-      var spText = (sp === null || sp === undefined) ? "分位 —" : "分位 " + fmt(sp, 1) + "%";
+      var tp = topPctOf(it);
+      var spText = tp === null ? "前 —" : "前 " + fmt(tp, 1) + "%";
       return '<tr data-idx="' + indexOf(it) + '">' +
         '<td><div class="cell-name">' + escapeHtml(it.name) + "</div>" +
         '<div class="cell-sub">' + escapeHtml(sub) + "</div></td>" +
@@ -420,7 +430,8 @@
   function renderMetrics(it) {
     var m = it.metrics || {};
     var rows = [];
-    rows.push(["综合分历史分位", m.score_percentile === null || m.score_percentile === undefined ? "—" : fmt(m.score_percentile, 1) + "%"]);
+    var tp = topPctOf(it);
+    rows.push(["综合分历史位置", tp === null ? "—" : "前 " + fmt(tp, 1) + "%"]);
     if (m.valuation_basis === "cape") {
       rows.push(["CAPE(席勒PE)", m.cape === null || m.cape === undefined ? "—" : fmt(m.cape, 2)]);
       rows.push(["CAPE 历史分位", m.cape_percentile === null ? "—" : fmt(m.cape_percentile, 1) + "%"]);
