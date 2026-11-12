@@ -3,7 +3,7 @@
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
     "version": "1.0.13",
-    "generated_at": "2026-11-12T18:25:46+08:00",
+    "generated_at": "2026-11-12T18:41:04+08:00",
     "weights": {
       "valuation": 0.27,
       "technical": 0.3,
@@ -46,7 +46,7 @@
     "errors": []
   },
   "report": {
-    "generated_at": "2026-11-12T18:25:46+08:00",
+    "generated_at": "2026-11-12T18:41:04+08:00",
     "summary": {
       "total": 17,
       "valid": 17,
@@ -80,7 +80,7 @@
           "name": "德国DAX",
           "score": 53.0,
           "rating": "观望",
-          "change_pct": 1.05,
+          "change_pct": 1.06,
           "reason": "价格处于历史高位（分位 100.0%）；近20日动量偏强"
         },
         {
@@ -2376,8 +2376,8 @@
       "category": "overseas",
       "region": "DE",
       "kind": "index",
-      "price": 26943.919921875,
-      "change_pct": 1.05,
+      "price": 26945.26953125,
+      "change_pct": 1.06,
       "open": 26910.5703125,
       "high": 27001.669921875,
       "low": 26893.5703125,
@@ -2398,19 +2398,19 @@
         "cape_percentile": null,
         "price_percentile": 100.0,
         "bias250": 8.5,
-        "bias_percentile": 64.9,
+        "bias_percentile": 65.0,
         "valuation_trend": "走阔",
         "erp": null,
         "risk_free_rate": 5.0,
         "volume_ratio_5_60": 0.91,
-        "ma20": 25882.94,
-        "ma60": 25695.57,
-        "ma250": 24841.24,
+        "ma20": 25883.01,
+        "ma60": 25695.6,
+        "ma250": 24841.25,
         "rsi14": 66.5,
-        "macd_dif": 304.436,
-        "macd_dea": 195.009,
-        "macd_bar": 218.852,
-        "ret20": 6.15,
+        "macd_dif": 304.543,
+        "macd_dea": 195.031,
+        "macd_bar": 219.025,
+        "ret20": 6.16,
         "ret60": 3.7,
         "volatility_1y": 16.1,
         "max_drawdown_1y": -12.3,
@@ -2898,7 +2898,7 @@
         ],
         [
           "2026-11-12",
-          26943.919921875
+          26945.26953125
         ]
       ]
     },
@@ -2913,7 +2913,7 @@
       "open": 24121.4,
       "high": 24132.2,
       "low": 23942.74,
-      "ts": "2026/11/12 18:08:05",
+      "ts": "2026/11/12 18:24:05",
       "data_source": "实时:腾讯(免费源); 历史:Yahoo(兜底源)",
       "score": 46.8,
       "rating": "观望",
