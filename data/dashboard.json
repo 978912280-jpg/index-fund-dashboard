@@ -3,7 +3,7 @@
     "title": "指数与基金估值观察台",
     "description": "海外主流指数 + 国内红利低波 / 宽基 ETF 的每日量化观察。评分为规则化计算结果，不构成投资建议。",
     "version": "1.0.13",
-    "generated_at": "2026-11-24T17:06:07+08:00",
+    "generated_at": "2026-11-25T17:06:05+08:00",
     "weights": {
       "valuation": 0.27,
       "technical": 0.3,
@@ -39,25 +39,25 @@
     "total": 17,
     "by_rating": {
       "观望": 7,
-      "卖出": 4,
-      "强烈卖出": 6
+      "卖出": 5,
+      "强烈卖出": 5
     },
     "errors": []
   },
   "report": {
-    "generated_at": "2026-11-24T17:06:07+08:00",
+    "generated_at": "2026-11-25T17:06:05+08:00",
     "summary": {
       "total": 17,
       "valid": 17,
       "no_data": 0,
-      "avg_score": 42.7,
-      "up": 12,
-      "down": 5,
+      "avg_score": 42.8,
+      "up": 3,
+      "down": 14,
       "flat": 0,
       "by_rating": {
         "观望": 7,
-        "卖出": 4,
-        "强烈卖出": 6
+        "卖出": 5,
+        "强烈卖出": 5
       },
       "mood": "中性"
     },
@@ -67,174 +67,174 @@
         {
           "code": "GDAXI",
           "name": "德国DAX",
-          "score": 52.7,
+          "score": 53.1,
           "rating": "观望",
-          "change_pct": -0.28,
-          "reason": "价格处于历史高位（分位 94.3%）"
-        },
-        {
-          "code": "000016",
-          "name": "上证50",
-          "score": 51.6,
-          "rating": "观望",
-          "change_pct": 0.45,
-          "reason": "价格处于历史中位区间（分位 49.2%）"
+          "change_pct": 0.35,
+          "reason": "价格处于历史高位（分位 93.0%）；成交相对清淡"
         },
         {
           "code": "515450",
           "name": "南方红利低波50",
-          "score": 51.3,
+          "score": 50.8,
           "rating": "观望",
-          "change_pct": 0.2,
-          "reason": "价格处于历史高位（分位 99.7%）"
+          "change_pct": 0.4,
+          "reason": "价格处于历史高位（分位 99.9%）"
         },
         {
           "code": "QQQI",
           "name": "纳指100高收益ETF(QQQI)",
           "score": 49.1,
           "rating": "观望",
-          "change_pct": 6.6,
-          "reason": "价格处于历史低位（分位 6.4%）；近20日动量偏弱"
+          "change_pct": -1.89,
+          "reason": "价格处于历史低位（分位 3.7%）；近20日动量偏弱"
         },
         {
           "code": "HSI",
           "name": "恒生指数",
-          "score": 45.2,
+          "score": 44.8,
           "rating": "观望",
-          "change_pct": -0.73,
-          "reason": "价格处于历史中位区间（分位 49.2%）；RSI 处于偏弱区；成交相对清淡"
+          "change_pct": -1.14,
+          "reason": "价格处于历史中位区间（分位 48.1%）；RSI 处于偏弱区；成交相对清淡"
         },
         {
           "code": "SPX",
           "name": "标普500",
           "score": 44.7,
           "rating": "观望",
-          "change_pct": 4.73,
+          "change_pct": -0.5,
           "reason": "价格处于历史高位（分位 97.6%）；近20日动量偏弱"
+        },
+        {
+          "code": "000852",
+          "name": "中证1000",
+          "score": 44.6,
+          "rating": "观望",
+          "change_pct": -4.44,
+          "reason": "价格处于历史低位（分位 11.1%）；近20日动量偏弱；RSI 处于偏弱区；成交相对清淡；近一年回撤较大"
         },
         {
           "code": "IXIC",
           "name": "纳斯达克综合",
           "score": 38.7,
           "rating": "观望",
-          "change_pct": 6.51,
-          "reason": "价格处于历史高位（分位 97.4%）；近20日动量偏弱"
+          "change_pct": -1.48,
+          "reason": "价格处于历史高位（分位 97.2%）；近20日动量偏弱"
         }
       ],
       "cautious": [
         {
           "code": "000300",
           "name": "沪深300",
-          "score": 47.0,
-          "rating": "强烈卖出",
-          "change_pct": 0.14,
-          "reason": "价格处于历史中位区间（分位 37.1%）；成交相对清淡"
+          "score": 49.4,
+          "rating": "卖出",
+          "change_pct": -1.65,
+          "reason": "价格处于历史中位区间（分位 30.6%）；RSI 处于偏弱区；成交相对清淡"
+        },
+        {
+          "code": "000016",
+          "name": "上证50",
+          "score": 48.4,
+          "rating": "卖出",
+          "change_pct": -0.82,
+          "reason": "价格处于历史中位区间（分位 45.9%）"
         },
         {
           "code": "DJI",
           "name": "道琼斯工业",
-          "score": 42.5,
+          "score": 42.6,
           "rating": "卖出",
-          "change_pct": 3.01,
-          "reason": "价格处于历史高位（分位 97.5%）；近20日动量偏弱"
-        },
-        {
-          "code": "000852",
-          "name": "中证1000",
-          "score": 42.5,
-          "rating": "卖出",
-          "change_pct": -0.23,
-          "reason": "价格处于历史低位（分位 14.5%）；近20日动量偏弱；成交相对清淡；近一年回撤较大"
-        },
-        {
-          "code": "VOO",
-          "name": "标普500ETF(VOO)",
-          "score": 41.3,
-          "rating": "卖出",
-          "change_pct": 4.46,
-          "reason": "价格处于历史高位（分位 96.6%）；近20日动量偏弱；短期成交偏拥挤"
-        },
-        {
-          "code": "VWO",
-          "name": "新兴市场ETF(VWO)",
-          "score": 38.3,
-          "rating": "强烈卖出",
-          "change_pct": 5.79,
-          "reason": "价格处于历史高位（分位 81.0%）；近20日动量偏弱"
+          "change_pct": 0.85,
+          "reason": "价格处于历史高位（分位 97.7%）"
         },
         {
           "code": "000905",
           "name": "中证500",
-          "score": 38.2,
+          "score": 41.7,
           "rating": "强烈卖出",
-          "change_pct": -0.27,
-          "reason": "价格处于历史中位区间（分位 40.5%）；近20日动量偏弱；成交相对清淡；近一年回撤较大"
+          "change_pct": -3.63,
+          "reason": "价格处于历史低位（分位 28.6%）；近20日动量偏弱；RSI 处于偏弱区；成交相对清淡；近一年回撤较大"
         },
         {
-          "code": "VEA",
-          "name": "发达市场ETF(VEA)",
-          "score": 37.7,
-          "rating": "强烈卖出",
-          "change_pct": 3.08,
-          "reason": "价格处于历史高位（分位 96.1%）；近20日动量偏弱"
+          "code": "VOO",
+          "name": "标普500ETF(VOO)",
+          "score": 40.9,
+          "rating": "卖出",
+          "change_pct": -0.48,
+          "reason": "价格处于历史高位（分位 96.6%）；近20日动量偏弱；短期成交偏拥挤"
         },
         {
           "code": "399006",
           "name": "创业板指",
-          "score": 37.4,
+          "score": 38.7,
           "rating": "卖出",
-          "change_pct": -0.05,
-          "reason": "价格处于历史中位区间（分位 35.5%）；近20日动量偏弱；成交相对清淡；近一年回撤较大"
+          "change_pct": -4.19,
+          "reason": "价格处于历史低位（分位 26.9%）；近20日动量偏弱；成交相对清淡；近一年回撤较大"
+        },
+        {
+          "code": "VEA",
+          "name": "发达市场ETF(VEA)",
+          "score": 36.9,
+          "rating": "强烈卖出",
+          "change_pct": -0.08,
+          "reason": "价格处于历史高位（分位 96.1%）；近20日动量偏弱；短期成交偏拥挤"
+        },
+        {
+          "code": "VWO",
+          "name": "新兴市场ETF(VWO)",
+          "score": 36.9,
+          "rating": "强烈卖出",
+          "change_pct": -1.27,
+          "reason": "价格处于历史高位（分位 80.0%）；近20日动量偏弱；短期成交偏拥挤"
         },
         {
           "code": "N225",
           "name": "日经225",
-          "score": 34.8,
+          "score": 35.1,
           "rating": "强烈卖出",
-          "change_pct": 3.91,
-          "reason": "价格处于历史高位（分位 90.2%）；近20日动量偏弱；成交相对清淡"
+          "change_pct": -2.78,
+          "reason": "价格处于历史高位（分位 89.3%）；近20日动量偏弱；成交相对清淡"
         },
         {
           "code": "QQQM",
           "name": "纳指100ETF(QQQM)",
-          "score": 32.2,
+          "score": 32.0,
           "rating": "强烈卖出",
-          "change_pct": 6.66,
-          "reason": "价格处于历史高位（分位 90.5%）；近20日动量偏弱；短期成交偏拥挤"
+          "change_pct": -1.94,
+          "reason": "价格处于历史高位（分位 90.0%）；近20日动量偏弱；短期成交偏拥挤"
         }
       ]
     },
     "bullets": [
-      "估值低位：纳指100高收益ETF(QQQI)（分位 6.4%）",
-      "估值高位：南方红利低波50（分位 99.7%）",
-      "技术分最高：南方红利低波50（83.1 分）",
-      "最拥挤：纳指100ETF(QQQM)（拥挤度 74.5）",
-      "风险得分最高：南方红利低波50（65.4 分）"
+      "估值低位：纳指100高收益ETF(QQQI)（分位 3.7%）",
+      "估值高位：南方红利低波50（分位 99.9%）",
+      "技术分最高：南方红利低波50（83.9 分）",
+      "最拥挤：标普500ETF(VOO)（拥挤度 71.6）",
+      "风险得分最高：南方红利低波50（65.9 分）"
     ],
     "category_summary": [
       {
         "category": "overseas",
         "label": "海外指数",
         "count": 6,
-        "avg_score": 43.1,
+        "avg_score": 43.2,
         "best_name": "德国DAX",
-        "best_score": 52.7
+        "best_score": 53.1
       },
       {
         "category": "broad",
         "label": "大盘宽基",
         "count": 5,
-        "avg_score": 43.3,
-        "best_name": "上证50",
-        "best_score": 51.6
+        "avg_score": 44.6,
+        "best_name": "沪深300",
+        "best_score": 49.4
       },
       {
         "category": "holding",
         "label": "我的资产",
         "count": 6,
-        "avg_score": 41.6,
+        "avg_score": 41.1,
         "best_name": "南方红利低波50",
-        "best_score": 51.3
+        "best_score": 50.8
       }
     ]
   },
@@ -245,54 +245,50 @@
       "category": "overseas",
       "region": "US",
       "kind": "index",
-      "price": 24089.56,
-      "change_pct": 6.51,
-      "open": 24269.75,
-      "high": 24353.65,
-      "low": 23794.96,
-      "ts": "2026-11-23 17:15:59",
+      "price": 23733.54,
+      "change_pct": -1.48,
+      "open": 23745.86,
+      "high": 23884.74,
+      "low": 23455.84,
+      "ts": "2026-11-24 17:15:59",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 38.7,
       "rating": "观望",
       "signals": {
-        "valuation": 40.4,
+        "valuation": 41.3,
         "valuation_basis": "price",
-        "technical": 27.2,
-        "crowding": 38.8,
+        "technical": 24.8,
+        "crowding": 35.8,
         "risk": 37.4
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 97.4,
-        "bias250": -2.9,
-        "bias_percentile": 15.4,
+        "price_percentile": 97.2,
+        "bias250": -4.3,
+        "bias_percentile": 13.3,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.14,
-        "ma20": 24997.94,
-        "ma60": 26110.51,
-        "ma250": 24808.79,
-        "rsi14": 41.8,
-        "macd_dif": -665.616,
-        "macd_dea": -531.83,
-        "macd_bar": -267.573,
-        "ret20": -7.95,
-        "ret60": -8.76,
-        "volatility_1y": 21.2,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 1.13,
+        "ma20": 24860.72,
+        "ma60": 26066.55,
+        "ma250": 24811.62,
+        "rsi14": 39.5,
+        "macd_dif": -671.566,
+        "macd_dea": -559.777,
+        "macd_bar": -223.578,
+        "ret20": -10.36,
+        "ret60": -10.0,
+        "volatility_1y": 21.3,
         "max_drawdown_1y": -18.1,
-        "history_len": 5760,
-        "score_percentile": 27.9
+        "history_len": 5761,
+        "score_percentile": 27.1
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-04",
-          26830.96
-        ],
         [
           "2026-06-05",
           25709.43
@@ -768,6 +764,10 @@
         [
           "2026-11-23",
           24089.56
+        ],
+        [
+          "2026-11-24",
+          23733.54
         ]
       ]
     },
@@ -777,20 +777,20 @@
       "category": "overseas",
       "region": "US",
       "kind": "index",
-      "price": 7237.17,
-      "change_pct": 4.73,
-      "open": 7227.41,
-      "high": 7295.6,
-      "low": 7152.66,
-      "ts": "2026-11-23 16:42:33",
+      "price": 7201.09,
+      "change_pct": -0.5,
+      "open": 7172.33,
+      "high": 7223.95,
+      "low": 7138.93,
+      "ts": "2026-11-24 16:54:10",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 44.7,
       "rating": "观望",
       "signals": {
-        "valuation": 37.7,
+        "valuation": 38.2,
         "valuation_basis": "cape",
-        "technical": 29.5,
-        "crowding": 42.0,
+        "technical": 28.6,
+        "crowding": 41.3,
         "risk": 60.7
       },
       "metrics": {
@@ -798,33 +798,29 @@
         "cape": 40.71,
         "cape_percentile": 98.9,
         "price_percentile": 97.6,
-        "bias250": -0.3,
-        "bias_percentile": 19.8,
+        "bias250": -0.8,
+        "bias_percentile": 18.6,
         "valuation_trend": "回落",
-        "erp": -2.46,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.17,
-        "ma20": 7477.25,
-        "ma60": 7625.15,
-        "ma250": 7257.22,
-        "rsi14": 41.3,
-        "macd_dif": -129.686,
-        "macd_dea": -85.973,
-        "macd_bar": -87.425,
-        "ret20": -5.73,
-        "ret60": -6.15,
+        "erp": -2.45,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 1.18,
+        "ma20": 7451.18,
+        "ma60": 7617.07,
+        "ma250": 7258.96,
+        "rsi14": 40.3,
+        "macd_dif": -131.122,
+        "macd_dea": -95.003,
+        "macd_bar": -72.238,
+        "ret20": -6.75,
+        "ret60": -6.31,
         "volatility_1y": 15.0,
         "max_drawdown_1y": -11.6,
-        "history_len": 5763,
-        "score_percentile": 28.1
+        "history_len": 5764,
+        "score_percentile": 27.2
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-04",
-          7584.31
-        ],
         [
           "2026-06-05",
           7383.74
@@ -1300,6 +1296,10 @@
         [
           "2026-11-23",
           7237.17
+        ],
+        [
+          "2026-11-24",
+          7201.09
         ]
       ]
     },
@@ -1309,19 +1309,19 @@
       "category": "overseas",
       "region": "US",
       "kind": "index",
-      "price": 49595.31,
-      "change_pct": 3.01,
-      "open": 49239.91,
-      "high": 49810.26,
-      "low": 49033.31,
-      "ts": "2026-11-23 16:42:39",
+      "price": 50018.7,
+      "change_pct": 0.85,
+      "open": 49494.6,
+      "high": 50075.12,
+      "low": 49294.49,
+      "ts": "2026-11-24 16:54:25",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
-      "score": 42.5,
+      "score": 42.6,
       "rating": "卖出",
       "signals": {
-        "valuation": 40.1,
+        "valuation": 38.6,
         "valuation_basis": "price",
-        "technical": 28.6,
+        "technical": 30.4,
         "crowding": 63.1,
         "risk": 62.7
       },
@@ -1329,34 +1329,30 @@
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 97.5,
-        "bias250": -1.5,
-        "bias_percentile": 16.1,
+        "price_percentile": 97.7,
+        "bias250": -0.7,
+        "bias_percentile": 18.2,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.75,
-        "ma20": 51502.97,
-        "ma60": 51846.66,
-        "ma250": 50342.29,
-        "rsi14": 39.2,
-        "macd_dif": -677.925,
-        "macd_dea": -306.059,
-        "macd_bar": -743.732,
-        "ret20": -5.28,
-        "ret60": -7.4,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 1.73,
+        "ma20": 51385.03,
+        "ma60": 51793.88,
+        "ma250": 50353.91,
+        "rsi14": 42.3,
+        "macd_dif": -673.74,
+        "macd_dea": -379.595,
+        "macd_bar": -588.291,
+        "ret20": -4.5,
+        "ret60": -5.95,
         "volatility_1y": 14.1,
         "max_drawdown_1y": -11.4,
-        "history_len": 5762,
-        "score_percentile": 11.4
+        "history_len": 5763,
+        "score_percentile": 11.9
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-04",
-          51561.93
-        ],
         [
           "2026-06-05",
           50866.78
@@ -1832,6 +1828,10 @@
         [
           "2026-11-23",
           49595.31
+        ],
+        [
+          "2026-11-24",
+          50018.7
         ]
       ]
     },
@@ -1841,54 +1841,50 @@
       "category": "overseas",
       "region": "JP",
       "kind": "index",
-      "price": 58644.62890625,
-      "change_pct": 3.91,
-      "open": 57009.98828125,
-      "high": 59262.5703125,
-      "low": 57009.98828125,
-      "ts": "2026-11-24",
+      "price": 57011.62109375,
+      "change_pct": -2.78,
+      "open": 58383.48828125,
+      "high": 58472.55859375,
+      "low": 56502.96875,
+      "ts": "2026-11-25",
       "data_source": "历史:Yahoo(兜底源)",
-      "score": 34.8,
+      "score": 35.1,
       "rating": "强烈卖出",
       "signals": {
-        "valuation": 44.5,
+        "valuation": 48.3,
         "valuation_basis": "price",
-        "technical": 26.8,
-        "crowding": 26.6,
+        "technical": 23.4,
+        "crowding": 24.5,
         "risk": 13.3
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 90.2,
-        "bias250": -2.3,
-        "bias_percentile": 15.9,
+        "price_percentile": 89.3,
+        "bias250": -5.1,
+        "bias_percentile": 7.7,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 0.71,
-        "ma20": 60783.13,
-        "ma60": 64217.32,
-        "ma250": 60030.66,
-        "rsi14": 40.8,
-        "macd_dif": -1710.452,
-        "macd_dea": -1563.246,
-        "macd_bar": -294.412,
-        "ret20": -6.46,
-        "ret60": -10.5,
-        "volatility_1y": 30.3,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 0.79,
+        "ma20": 60524.23,
+        "ma60": 64069.91,
+        "ma250": 60054.45,
+        "rsi14": 36.7,
+        "macd_dif": -1789.421,
+        "macd_dea": -1608.481,
+        "macd_bar": -361.879,
+        "ret20": -8.33,
+        "ret60": -13.43,
+        "volatility_1y": 30.5,
         "max_drawdown_1y": -22.0,
-        "history_len": 1473,
-        "score_percentile": 2.7
+        "history_len": 1474,
+        "score_percentile": 3.1
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-05-29",
-          66329.5
-        ],
         [
           "2026-06-01",
           66934.328125
@@ -2364,6 +2360,10 @@
         [
           "2026-11-24",
           58644.62890625
+        ],
+        [
+          "2026-11-25",
+          57011.62109375
         ]
       ]
     },
@@ -2373,54 +2373,50 @@
       "category": "overseas",
       "region": "DE",
       "kind": "index",
-      "price": 25267.05078125,
-      "change_pct": -0.28,
-      "open": 25308.310546875,
-      "high": 25330.3203125,
-      "low": 25203.080078125,
-      "ts": "2026-11-24",
+      "price": 25106.30078125,
+      "change_pct": 0.35,
+      "open": 25083.98046875,
+      "high": 25151.419921875,
+      "low": 25000.580078125,
+      "ts": "2026-11-25",
       "data_source": "历史:Yahoo(兜底源)",
-      "score": 52.7,
+      "score": 53.1,
       "rating": "观望",
       "signals": {
-        "valuation": 35.9,
+        "valuation": 37.5,
         "valuation_basis": "price",
-        "technical": 58.8,
-        "crowding": 36.3,
-        "risk": 56.4
+        "technical": 57.9,
+        "crowding": 34.4,
+        "risk": 56.3
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 94.3,
-        "bias250": 1.4,
-        "bias_percentile": 24.5,
+        "price_percentile": 93.0,
+        "bias250": 0.7,
+        "bias_percentile": 22.5,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 0.9,
-        "ma20": 26002.05,
-        "ma60": 25626.71,
-        "ma250": 24916.91,
-        "rsi14": 42.7,
-        "macd_dif": -67.941,
-        "macd_dea": 94.235,
-        "macd_bar": -324.352,
-        "ret20": -1.26,
-        "ret60": -2.71,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 0.89,
+        "ma20": 25959.7,
+        "ma60": 25610.34,
+        "ma250": 24920.99,
+        "rsi14": 41.5,
+        "macd_dif": -127.459,
+        "macd_dea": 46.715,
+        "macd_bar": -348.349,
+        "ret20": -2.33,
+        "ret60": -2.84,
         "volatility_1y": 16.6,
         "max_drawdown_1y": -12.3,
-        "history_len": 1537,
-        "score_percentile": 56.5
+        "history_len": 1538,
+        "score_percentile": 60.9
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-10",
-          24195.310546875
-        ],
         [
           "2026-06-11",
           24209.7109375
@@ -2895,7 +2891,11 @@
         ],
         [
           "2026-11-24",
-          25267.05078125
+          25017.810546875
+        ],
+        [
+          "2026-11-25",
+          25106.30078125
         ]
       ]
     },
@@ -2905,54 +2905,50 @@
       "category": "overseas",
       "region": "HK",
       "kind": "index",
-      "price": 22219.65,
-      "change_pct": -0.73,
-      "open": 22627.29,
-      "high": 22647.5,
-      "low": 22183.16,
-      "ts": "2026/11/24 16:50:09",
+      "price": 21966.01,
+      "change_pct": -1.14,
+      "open": 22252.81,
+      "high": 22507.83,
+      "low": 21915.88,
+      "ts": "2026/11/25 16:50:02",
       "data_source": "实时:腾讯(免费源); 历史:Yahoo(兜底源)",
-      "score": 45.2,
+      "score": 44.8,
       "rating": "观望",
       "signals": {
-        "valuation": 68.2,
+        "valuation": 69.8,
         "valuation_basis": "price",
-        "technical": 17.6,
-        "crowding": 27.8,
-        "risk": 38.1
+        "technical": 16.5,
+        "crowding": 28.3,
+        "risk": 36.6
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 49.2,
-        "bias250": -12.1,
-        "bias_percentile": 18.3,
+        "price_percentile": 48.1,
+        "bias250": -13.1,
+        "bias_percentile": 15.9,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 0.98,
-        "ma20": 23542.31,
-        "ma60": 24179.24,
-        "ma250": 25292.44,
-        "rsi14": 29.3,
-        "macd_dif": -385.316,
-        "macd_dea": -211.196,
-        "macd_bar": -348.24,
-        "ret20": -3.57,
-        "ret60": -13.15,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 1.04,
+        "ma20": 23485.87,
+        "ma60": 24119.22,
+        "ma250": 25276.98,
+        "rsi14": 27.1,
+        "macd_dif": -449.456,
+        "macd_dea": -258.848,
+        "macd_bar": -381.217,
+        "ret20": -4.89,
+        "ret60": -14.08,
         "volatility_1y": 18.8,
-        "max_drawdown_1y": -20.6,
-        "history_len": 1484,
-        "score_percentile": 51.5
+        "max_drawdown_1y": -21.5,
+        "history_len": 1485,
+        "score_percentile": 47.8
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-04",
-          25253.400390625
-        ],
         [
           "2026-06-05",
           24961.94921875
@@ -3428,6 +3424,10 @@
         [
           "2026-11-24",
           22219.650390625
+        ],
+        [
+          "2026-11-25",
+          21966.009765625
         ]
       ]
     },
@@ -3437,54 +3437,50 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 65.58,
-      "change_pct": 3.08,
-      "open": 65.88,
-      "high": 66.03,
-      "low": 65.43,
-      "ts": "2026-11-23 16:00:01",
+      "price": 65.53,
+      "change_pct": -0.08,
+      "open": 65.55,
+      "high": 65.8,
+      "low": 65.03,
+      "ts": "2026-11-24 16:00:01",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
-      "score": 37.7,
+      "score": 36.9,
       "rating": "强烈卖出",
       "signals": {
-        "valuation": 38.2,
+        "valuation": 38.3,
         "valuation_basis": "price",
-        "technical": 26.7,
-        "crowding": 62.4,
-        "risk": 49.0
+        "technical": 26.3,
+        "crowding": 67.4,
+        "risk": 49.1
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
         "price_percentile": 96.1,
-        "bias250": -4.2,
-        "bias_percentile": 22.9,
+        "bias250": -4.3,
+        "bias_percentile": 22.6,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.74,
-        "ma20": 68.56,
-        "ma60": 70.28,
-        "ma250": 68.48,
-        "rsi14": 37.6,
-        "macd_dif": -1.204,
-        "macd_dea": -0.756,
-        "macd_bar": -0.895,
-        "ret20": -5.41,
-        "ret60": -10.24,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 1.9,
+        "ma20": 68.35,
+        "ma60": 70.16,
+        "ma250": 68.5,
+        "rsi14": 37.4,
+        "macd_dif": -1.248,
+        "macd_dea": -0.855,
+        "macd_bar": -0.786,
+        "ret20": -6.22,
+        "ret60": -10.13,
         "volatility_1y": 19.0,
         "max_drawdown_1y": -13.8,
-        "history_len": 4863,
-        "score_percentile": 4.6
+        "history_len": 4864,
+        "score_percentile": 4.3
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-04",
-          71.84
-        ],
         [
           "2026-06-05",
           69.17
@@ -3960,6 +3956,10 @@
         [
           "2026-11-23",
           65.58
+        ],
+        [
+          "2026-11-24",
+          65.53
         ]
       ]
     },
@@ -3969,54 +3969,50 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 53.55,
-      "change_pct": 5.79,
-      "open": 54.36,
-      "high": 54.39,
-      "low": 53.51,
-      "ts": "2026-11-23 16:00:01",
+      "price": 52.87,
+      "change_pct": -1.27,
+      "open": 53.17,
+      "high": 53.3,
+      "low": 52.38,
+      "ts": "2026-11-24 16:00:01",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
-      "score": 38.3,
+      "score": 36.9,
       "rating": "强烈卖出",
       "signals": {
-        "valuation": 49.0,
+        "valuation": 50.1,
         "valuation_basis": "price",
-        "technical": 26.8,
-        "crowding": 63.1,
+        "technical": 25.0,
+        "crowding": 70.3,
         "risk": 40.9
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 81.0,
-        "bias250": -7.0,
-        "bias_percentile": 18.5,
+        "price_percentile": 80.0,
+        "bias250": -8.2,
+        "bias_percentile": 17.2,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.84,
-        "ma20": 55.28,
-        "ma60": 58.16,
-        "ma250": 57.58,
-        "rsi14": 41.1,
-        "macd_dif": -1.34,
-        "macd_dea": -1.058,
-        "macd_bar": -0.563,
-        "ret20": -5.22,
-        "ret60": -11.91,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 2.1,
+        "ma20": 55.09,
+        "ma60": 58.03,
+        "ma250": 57.57,
+        "rsi14": 38.9,
+        "macd_dif": -1.354,
+        "macd_dea": -1.117,
+        "macd_bar": -0.472,
+        "ret20": -6.97,
+        "ret60": -12.64,
         "volatility_1y": 19.9,
         "max_drawdown_1y": -17.6,
-        "history_len": 5461,
-        "score_percentile": 3.9
+        "history_len": 5462,
+        "score_percentile": 2.0
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-04",
-          60.31
-        ],
         [
           "2026-06-05",
           58.03
@@ -4492,6 +4488,10 @@
         [
           "2026-11-23",
           53.55
+        ],
+        [
+          "2026-11-24",
+          52.87
         ]
       ]
     },
@@ -4501,20 +4501,20 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 663.91,
-      "change_pct": 4.46,
-      "open": 665.92,
-      "high": 669.17,
-      "low": 655.87,
-      "ts": "2026-11-23 16:00:01",
+      "price": 660.71,
+      "change_pct": -0.48,
+      "open": 657.39,
+      "high": 662.71,
+      "low": 654.61,
+      "ts": "2026-11-24 16:00:01",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
-      "score": 41.3,
+      "score": 40.9,
       "rating": "卖出",
       "signals": {
-        "valuation": 39.4,
+        "valuation": 40.0,
         "valuation_basis": "cape",
-        "technical": 29.5,
-        "crowding": 69.6,
+        "technical": 28.7,
+        "crowding": 71.6,
         "risk": 61.5
       },
       "metrics": {
@@ -4522,33 +4522,29 @@
         "cape": 40.71,
         "cape_percentile": 98.9,
         "price_percentile": 96.6,
-        "bias250": -0.2,
-        "bias_percentile": 15.5,
+        "bias250": -0.7,
+        "bias_percentile": 14.2,
         "valuation_trend": "回落",
-        "erp": -2.46,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.94,
-        "ma20": 685.52,
-        "ma60": 699.1,
-        "ma250": 665.41,
-        "rsi14": 41.2,
-        "macd_dif": -11.652,
-        "macd_dea": -7.764,
-        "macd_bar": -7.777,
-        "ret20": -5.62,
-        "ret60": -6.13,
-        "volatility_1y": 14.9,
+        "erp": -2.45,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 2.03,
+        "ma20": 683.18,
+        "ma60": 698.37,
+        "ma250": 665.57,
+        "rsi14": 40.2,
+        "macd_dif": -11.785,
+        "macd_dea": -8.568,
+        "macd_bar": -6.434,
+        "ret20": -6.62,
+        "ret60": -6.27,
+        "volatility_1y": 14.8,
         "max_drawdown_1y": -11.3,
-        "history_len": 4076,
-        "score_percentile": 18.5
+        "history_len": 4077,
+        "score_percentile": 17.7
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-04",
-          696.06
-        ],
         [
           "2026-06-05",
           678.0
@@ -5024,6 +5020,10 @@
         [
           "2026-11-23",
           663.91
+        ],
+        [
+          "2026-11-24",
+          660.71
         ]
       ]
     },
@@ -5033,54 +5033,50 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 267.97,
-      "change_pct": 6.66,
-      "open": 270.29,
-      "high": 270.73,
-      "low": 264.41,
-      "ts": "2026-11-23 16:00:01",
+      "price": 262.78,
+      "change_pct": -1.94,
+      "open": 263.39,
+      "high": 264.94,
+      "low": 259.9,
+      "ts": "2026-11-24 16:00:02",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
-      "score": 32.2,
+      "score": 32.0,
       "rating": "强烈卖出",
       "signals": {
-        "valuation": 43.0,
+        "valuation": 44.0,
         "valuation_basis": "price",
-        "technical": 26.7,
-        "crowding": 74.5,
-        "risk": 31.3
+        "technical": 23.7,
+        "crowding": 71.5,
+        "risk": 31.2
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 90.5,
-        "bias250": -2.9,
-        "bias_percentile": 19.3,
+        "price_percentile": 90.0,
+        "bias250": -4.8,
+        "bias_percentile": 17.3,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
+        "risk_free_rate": 4.9,
         "volume_ratio_5_60": 2.25,
-        "ma20": 278.18,
-        "ma60": 292.56,
-        "ma250": 276.07,
-        "rsi14": 41.9,
-        "macd_dif": -8.034,
-        "macd_dea": -6.711,
-        "macd_bar": -2.647,
-        "ret20": -8.62,
-        "ret60": -9.16,
+        "ma20": 276.47,
+        "ma60": 292.02,
+        "ma250": 276.12,
+        "rsi14": 39.2,
+        "macd_dif": -8.148,
+        "macd_dea": -6.998,
+        "macd_bar": -2.3,
+        "ret20": -11.51,
+        "ret60": -10.98,
         "volatility_1y": 23.0,
         "max_drawdown_1y": -19.7,
-        "history_len": 1536,
+        "history_len": 1537,
         "score_percentile": 0.2
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-04",
-          304.94
-        ],
         [
           "2026-06-05",
           290.35
@@ -5556,6 +5552,10 @@
         [
           "2026-11-23",
           267.97
+        ],
+        [
+          "2026-11-24",
+          262.78
         ]
       ]
     },
@@ -5565,54 +5565,50 @@
       "category": "holding",
       "region": "US",
       "kind": "etf",
-      "price": 48.59,
-      "change_pct": 6.6,
-      "open": 48.89,
-      "high": 49.06,
-      "low": 47.94,
-      "ts": "2026-11-23 16:00:01",
+      "price": 47.67,
+      "change_pct": -1.89,
+      "open": 47.83,
+      "high": 48.04,
+      "low": 47.17,
+      "ts": "2026-11-24 16:00:02",
       "data_source": "实时:腾讯(免费源); 历史:新浪美股(免费源)",
       "score": 49.1,
       "rating": "观望",
       "signals": {
         "valuation": 100.0,
         "valuation_basis": "price",
-        "technical": 13.0,
-        "crowding": 42.1,
-        "risk": 34.1
+        "technical": 10.0,
+        "crowding": 36.2,
+        "risk": 33.9
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 6.4,
-        "bias250": -9.9,
-        "bias_percentile": 2.8,
+        "price_percentile": 3.7,
+        "bias250": -11.6,
+        "bias_percentile": 1.3,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.77,
-        "ma20": 50.64,
-        "ma60": 53.45,
-        "ma250": 53.93,
-        "rsi14": 40.5,
-        "macd_dif": -1.515,
-        "macd_dea": -1.248,
-        "macd_bar": -0.533,
-        "ret20": -8.61,
-        "ret60": -10.89,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 1.69,
+        "ma20": 50.34,
+        "ma60": 53.34,
+        "ma250": 53.9,
+        "rsi14": 37.8,
+        "macd_dif": -1.543,
+        "macd_dea": -1.307,
+        "macd_bar": -0.472,
+        "ret20": -11.41,
+        "ret60": -12.69,
         "volatility_1y": 20.5,
         "max_drawdown_1y": -21.0,
-        "history_len": 708,
-        "score_percentile": 43.2
+        "history_len": 709,
+        "score_percentile": 42.2
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-04",
-          57.39
-        ],
         [
           "2026-06-05",
           55.11
@@ -6088,6 +6084,10 @@
         [
           "2026-11-23",
           48.59
+        ],
+        [
+          "2026-11-24",
+          47.67
         ]
       ]
     },
@@ -6097,54 +6097,50 @@
       "category": "holding",
       "region": "CN",
       "kind": "etf",
-      "price": 1.505,
-      "change_pct": 0.2,
-      "open": 1.481,
-      "high": 1.506,
-      "low": 1.481,
-      "ts": "20261124161500",
+      "price": 1.511,
+      "change_pct": 0.4,
+      "open": 1.507,
+      "high": 1.515,
+      "low": 1.491,
+      "ts": "20261125161446",
       "data_source": "实时:腾讯(免费源); 历史:新浪(免费源)",
-      "score": 51.3,
+      "score": 50.8,
       "rating": "观望",
       "signals": {
-        "valuation": 4.7,
+        "valuation": 4.2,
         "valuation_basis": "price",
-        "technical": 83.1,
-        "crowding": 54.9,
-        "risk": 65.4
+        "technical": 83.9,
+        "crowding": 59.4,
+        "risk": 65.9
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 99.7,
-        "bias250": 5.8,
-        "bias_percentile": 80.4,
+        "price_percentile": 99.9,
+        "bias250": 6.3,
+        "bias_percentile": 81.2,
         "valuation_trend": "走阔",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.26,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 1.36,
         "ma20": 1.48,
         "ma60": 1.44,
         "ma250": 1.42,
-        "rsi14": 61.9,
+        "rsi14": 63.5,
         "macd_dif": 0.018,
-        "macd_dea": 0.015,
-        "macd_bar": 0.005,
-        "ret20": 3.51,
-        "ret60": 6.89,
+        "macd_dea": 0.016,
+        "macd_bar": 0.004,
+        "ret20": 4.28,
+        "ret60": 6.94,
         "volatility_1y": 12.5,
-        "max_drawdown_1y": -11.8,
-        "history_len": 1508,
-        "score_percentile": 49.3
+        "max_drawdown_1y": -11.5,
+        "history_len": 1509,
+        "score_percentile": 45.0
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-01",
-          1.446
-        ],
         [
           "2026-06-02",
           1.443
@@ -6620,6 +6616,10 @@
         [
           "2026-11-24",
           1.505
+        ],
+        [
+          "2026-11-25",
+          1.511
         ]
       ]
     },
@@ -6629,54 +6629,50 @@
       "category": "broad",
       "region": "CN",
       "kind": "index",
-      "price": 2774.49,
-      "change_pct": 0.45,
-      "open": 2768.91,
-      "high": 2780.52,
-      "low": 2756.79,
-      "ts": "20261124161427",
+      "price": 2751.85,
+      "change_pct": -0.82,
+      "open": 2758.52,
+      "high": 2771.52,
+      "low": 2739.95,
+      "ts": "20261125161427",
       "data_source": "实时:腾讯(免费源); 历史:新浪(免费源)",
-      "score": 51.6,
-      "rating": "观望",
+      "score": 48.4,
+      "rating": "卖出",
       "signals": {
-        "valuation": 58.0,
+        "valuation": 62.1,
         "valuation_basis": "price",
-        "technical": 35.9,
-        "crowding": 37.8,
+        "technical": 21.0,
+        "crowding": 36.8,
         "risk": 56.8
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 49.2,
-        "bias250": -5.4,
-        "bias_percentile": 33.9,
+        "price_percentile": 45.9,
+        "bias250": -6.2,
+        "bias_percentile": 29.6,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.14,
-        "ma20": 2773.3,
-        "ma60": 2821.76,
-        "ma250": 2934.14,
-        "rsi14": 48.0,
-        "macd_dif": -7.132,
-        "macd_dea": -9.727,
-        "macd_bar": 5.191,
-        "ret20": 1.01,
-        "ret60": -3.35,
-        "volatility_1y": 15.2,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 1.15,
+        "ma20": 2773.24,
+        "ma60": 2819.7,
+        "ma250": 2932.85,
+        "rsi14": 42.2,
+        "macd_dif": -8.282,
+        "macd_dea": -9.438,
+        "macd_bar": 2.313,
+        "ret20": -0.04,
+        "ret60": -4.3,
+        "volatility_1y": 15.1,
         "max_drawdown_1y": -13.7,
-        "history_len": 1508,
-        "score_percentile": 38.6
+        "history_len": 1509,
+        "score_percentile": 17.0
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-01",
-          2893.719
-        ],
         [
           "2026-06-02",
           2920.269
@@ -7152,6 +7148,10 @@
         [
           "2026-11-24",
           2774.489
+        ],
+        [
+          "2026-11-25",
+          2751.85
         ]
       ]
     },
@@ -7161,54 +7161,50 @@
       "category": "broad",
       "region": "CN",
       "kind": "index",
-      "price": 3963.82,
-      "change_pct": 0.14,
-      "open": 4004.04,
-      "high": 4011.69,
-      "low": 3957.92,
-      "ts": "20261124161409",
+      "price": 3898.24,
+      "change_pct": -1.65,
+      "open": 3929.84,
+      "high": 3937.33,
+      "low": 3886.92,
+      "ts": "20261125161409",
       "data_source": "实时:腾讯(免费源); 历史:新浪(免费源)",
-      "score": 47.0,
-      "rating": "强烈卖出",
+      "score": 49.4,
+      "rating": "卖出",
       "signals": {
-        "valuation": 80.1,
+        "valuation": 85.2,
         "valuation_basis": "price",
-        "technical": 13.3,
-        "crowding": 28.5,
-        "risk": 38.3
+        "technical": 16.5,
+        "crowding": 25.3,
+        "risk": 36.4
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 37.1,
-        "bias250": -13.8,
-        "bias_percentile": 6.7,
+        "price_percentile": 30.6,
+        "bias250": -15.2,
+        "bias_percentile": 3.5,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 1.03,
-        "ma20": 4022.94,
-        "ma60": 4273.87,
-        "ma250": 4599.91,
-        "rsi14": 32.8,
-        "macd_dif": -66.847,
-        "macd_dea": -72.015,
-        "macd_bar": 10.336,
-        "ret20": -2.12,
-        "ret60": -13.13,
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 1.04,
+        "ma20": 4013.65,
+        "ma60": 4262.97,
+        "ma250": 4596.69,
+        "rsi14": 27.1,
+        "macd_dif": -69.856,
+        "macd_dea": -71.583,
+        "macd_bar": 3.454,
+        "ret20": -4.55,
+        "ret60": -14.36,
         "volatility_1y": 17.7,
-        "max_drawdown_1y": -21.8,
-        "history_len": 1508,
-        "score_percentile": 7.2
+        "max_drawdown_1y": -23.0,
+        "history_len": 1509,
+        "score_percentile": 21.4
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-01",
-          4844.256
-        ],
         [
           "2026-06-02",
           4914.559
@@ -7684,6 +7680,10 @@
         [
           "2026-11-24",
           3963.823
+        ],
+        [
+          "2026-11-25",
+          3898.236
         ]
       ]
     },
@@ -7693,54 +7693,50 @@
       "category": "broad",
       "region": "CN",
       "kind": "index",
-      "price": 6112.43,
-      "change_pct": -0.27,
-      "open": 6260.03,
-      "high": 6286.56,
-      "low": 6100.03,
-      "ts": "20261124161409",
+      "price": 5890.41,
+      "change_pct": -3.63,
+      "open": 6029.01,
+      "high": 6099.3,
+      "low": 5890.41,
+      "ts": "20261125161409",
       "data_source": "实时:腾讯(免费源); 历史:新浪(免费源)",
-      "score": 38.2,
+      "score": 41.7,
       "rating": "强烈卖出",
       "signals": {
-        "valuation": 80.5,
+        "valuation": 87.8,
         "valuation_basis": "price",
-        "technical": 10.6,
-        "crowding": 20.1,
-        "risk": 4.5
+        "technical": 12.8,
+        "crowding": 13.1,
+        "risk": 4.1
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 40.5,
-        "bias250": -21.6,
-        "bias_percentile": 0.5,
+        "price_percentile": 28.6,
+        "bias250": -24.4,
+        "bias_percentile": 0.1,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 0.89,
-        "ma20": 6422.26,
-        "ma60": 7088.87,
-        "ma250": 7792.63,
-        "rsi14": 33.9,
-        "macd_dif": -219.601,
-        "macd_dea": -205.228,
-        "macd_bar": -28.746,
-        "ret20": -6.13,
-        "ret60": -20.79,
-        "volatility_1y": 27.8,
-        "max_drawdown_1y": -33.5,
-        "history_len": 1508,
-        "score_percentile": 4.4
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 0.9,
+        "ma20": 6384.73,
+        "ma60": 7058.53,
+        "ma250": 7786.77,
+        "rsi14": 29.0,
+        "macd_dif": -236.296,
+        "macd_dea": -211.442,
+        "macd_bar": -49.709,
+        "ret20": -11.3,
+        "ret60": -23.61,
+        "volatility_1y": 27.9,
+        "max_drawdown_1y": -34.8,
+        "history_len": 1509,
+        "score_percentile": 8.7
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-01",
-          8274.212
-        ],
         [
           "2026-06-02",
           8321.435
@@ -8216,6 +8212,10 @@
         [
           "2026-11-24",
           6112.435
+        ],
+        [
+          "2026-11-25",
+          5890.413
         ]
       ]
     },
@@ -8225,54 +8225,50 @@
       "category": "broad",
       "region": "CN",
       "kind": "index",
-      "price": 5799.01,
-      "change_pct": -0.23,
-      "open": 5958.43,
-      "high": 5997.58,
-      "low": 5777.42,
-      "ts": "20261124161427",
+      "price": 5541.55,
+      "change_pct": -4.44,
+      "open": 5723.92,
+      "high": 5817.84,
+      "low": 5541.55,
+      "ts": "20261125161427",
       "data_source": "实时:腾讯(免费源); 历史:新浪(免费源)",
-      "score": 42.5,
-      "rating": "卖出",
+      "score": 44.6,
+      "rating": "观望",
       "signals": {
-        "valuation": 96.1,
+        "valuation": 98.3,
         "valuation_basis": "price",
-        "technical": 8.4,
-        "crowding": 11.7,
-        "risk": 2.9
+        "technical": 11.0,
+        "crowding": 6.1,
+        "risk": 2.2
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 14.5,
-        "bias250": -25.1,
-        "bias_percentile": 0.5,
+        "price_percentile": 11.1,
+        "bias250": -28.4,
+        "bias_percentile": 0.2,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 0.9,
-        "ma20": 6274.42,
-        "ma60": 6963.76,
-        "ma250": 7745.22,
-        "rsi14": 32.4,
-        "macd_dif": -274.826,
-        "macd_dea": -232.358,
-        "macd_bar": -84.937,
-        "ret20": -9.77,
-        "ret60": -22.59,
-        "volatility_1y": 28.6,
-        "max_drawdown_1y": -36.9,
-        "history_len": 1508,
-        "score_percentile": 21.8
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 0.91,
+        "ma20": 6222.59,
+        "ma60": 6930.66,
+        "ma250": 7737.02,
+        "rsi14": 27.9,
+        "macd_dif": -297.553,
+        "macd_dea": -245.397,
+        "macd_bar": -104.312,
+        "ret20": -15.76,
+        "ret60": -26.38,
+        "volatility_1y": 28.9,
+        "max_drawdown_1y": -38.1,
+        "history_len": 1509,
+        "score_percentile": 32.2
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-01",
-          8345.129
-        ],
         [
           "2026-06-02",
           8384.781
@@ -8748,6 +8744,10 @@
         [
           "2026-11-24",
           5799.014
+        ],
+        [
+          "2026-11-25",
+          5541.55
         ]
       ]
     },
@@ -8757,54 +8757,50 @@
       "category": "broad",
       "region": "CN",
       "kind": "index",
-      "price": 2278.99,
-      "change_pct": -0.05,
-      "open": 2368.7,
-      "high": 2376.34,
-      "low": 2278.99,
-      "ts": "20261124161454",
+      "price": 2183.58,
+      "change_pct": -4.19,
+      "open": 2233.18,
+      "high": 2274.18,
+      "low": 2183.58,
+      "ts": "20261125161403",
       "data_source": "实时:腾讯(免费源); 历史:新浪(免费源)",
-      "score": 37.4,
+      "score": 38.7,
       "rating": "卖出",
       "signals": {
-        "valuation": 83.6,
+        "valuation": 88.8,
         "valuation_basis": "price",
-        "technical": 8.4,
-        "crowding": 17.8,
+        "technical": 5.3,
+        "crowding": 12.2,
         "risk": 0.0
       },
       "metrics": {
         "valuation_basis": "price",
         "cape": null,
         "cape_percentile": null,
-        "price_percentile": 35.5,
-        "bias250": -32.2,
-        "bias_percentile": 0.2,
+        "price_percentile": 26.9,
+        "bias250": -35.0,
+        "bias_percentile": 0.1,
         "valuation_trend": "回落",
         "erp": null,
-        "risk_free_rate": 4.92,
-        "volume_ratio_5_60": 0.98,
-        "ma20": 2422.11,
-        "ma60": 2902.06,
-        "ma250": 3363.13,
-        "rsi14": 34.1,
-        "macd_dif": -148.204,
-        "macd_dea": -152.719,
-        "macd_bar": 9.031,
-        "ret20": -10.56,
-        "ret60": -33.59,
-        "volatility_1y": 36.2,
-        "max_drawdown_1y": -49.4,
-        "history_len": 1508,
-        "score_percentile": 12.8
+        "risk_free_rate": 4.9,
+        "volume_ratio_5_60": 0.99,
+        "ma20": 2399.55,
+        "ma60": 2881.82,
+        "ma250": 3359.06,
+        "rsi14": 30.2,
+        "macd_dif": -150.836,
+        "macd_dea": -152.342,
+        "macd_bar": 3.012,
+        "ret20": -17.12,
+        "ret60": -35.73,
+        "volatility_1y": 36.4,
+        "max_drawdown_1y": -50.1,
+        "history_len": 1509,
+        "score_percentile": 19.9
       },
       "confidence": "high",
       "note": null,
       "history": [
-        [
-          "2026-06-01",
-          3950.943
-        ],
         [
           "2026-06-02",
           4055.871
@@ -9280,6 +9276,10 @@
         [
           "2026-11-24",
           2278.994
+        ],
+        [
+          "2026-11-25",
+          2183.584
         ]
       ]
     }
